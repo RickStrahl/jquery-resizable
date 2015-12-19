@@ -18,13 +18,12 @@
             onDrag: null
         };
         if (typeof options == "object") opt = $.extend(opt, options);
-
         
         return this.each(function () {            
             var $el = $(this);
             var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
-            var startWidth, startHeight, startTransition, startX, startY;
+            var startPos, startTransition;
 
             function noop(e) {
                 e.stopPropagation();
@@ -32,53 +31,86 @@
             };
 
             function startDragging(e) {
-                startX = e.clientX;
-                startY = e.clientY;
-
-                startWidth = parseInt($el.width(), 10);
-                startHeight = parseInt($el.height(), 10);
+                startPos = getMousePos(e);     
+                startPos.width =  parseInt($el.width(), 10);
+                startPos.height = parseInt($el.height(), 10);
 
                 if (opt.onDragStart) {
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
                 }
 
-                opt.dragFunc = doDrag; 
+                opt.dragFunc = doDrag; //debounce(doDrag, 2);
+                
                 $(document).bind('mousemove.rsz', opt.dragFunc);
-                $(document).bind('mouseup.rsz', stopDragging);
+                $(document).bind('mouseup.rsz', stopDragging);                
+
+                if (window.Touch) {
+                    $(document).bind('touchmove.rsz', opt.dragFunc);
+                    $(document).bind('touchend.rsz', stopDragging);                    
+                }
+
                 $(document).bind('selectstart.rsz', noop); // disable selection
 
                 startTransition = $el.css("transition");                
                 $el.css("transition", "none");                
             }
 
-            function doDrag(e) {
-                var newWidth = startWidth + e.clientX - startX;                
-                if (opt.resizeWidth)
-                    $el.width(newWidth);
+            function doDrag(e) {                
+                var pos = getMousePos(e);
 
-                if (opt.resizeHeight) $el.height(startHeight + e.clientY - startY);
+                if (opt.resizeWidth) {
+                    var newWidth = startPos.width + pos.x - startPos.x;                    
+                    $el.width(newWidth);
+                }
+
+                if (opt.resizeHeight) {
+                    var newHeight = startPos.height + pos.y - startPos.y;                    
+                    $el.height(newHeight);
+                }
+
                 if (opt.onDrag)
-                    opt.onDrag(e,$el,opt);
+                    opt.onDrag(e, $el, opt);
+
+                // console.log('dragging', e, pos, newWidth, newHeight);
             }
 
-            function stopDragging(e) {
+            function stopDragging(e) {                
                 e.stopPropagation();
-                e.preventDefault();
+                e.preventDefault();                
 
                 $(document).unbind('mousemove.rsz', opt.dragFunc);
                 $(document).unbind('mouseup.rsz', stopDragging);
+
+                if (window.Touch) {
+                    $(document).unbind('touchmove.rsz', opt.dragFunc);
+                    $(document).unbind('touchend.rsz', stopDragging);
+                }
                 $(document).unbind('selectstart.rsz', noop);
 
                 $el.css("transition", startTransition);
-                if (opt.onDragStop) opt.onDragStop(e,$el,opt);
+                if (opt.onDragStop) opt.onDragStop(e, $el, opt);
 
                 return false;
+            }
+            function getMousePos(e) {
+                var pos = { x: 0, y: 0, width: 0, height: 0 };
+                if (typeof e.clientX === "number") {
+                    pos.x = e.clientX;
+                    pos.y = e.clientY;
+                } else if (e.originalEvent.touches) {
+                    pos.x = e.originalEvent.touches[0].clientX;
+                    pos.y = e.originalEvent.touches[0].clientY;
+                } else
+                    return null;
+
+                return pos;
             }
 
             // Initialization
             $el.addClass("resizable");
-            $handle.bind('mousedown.rsz', startDragging);
+
+            $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
         });
-    };    
+    };
 })(jQuery,undefined);
