@@ -11,22 +11,27 @@
             // resize the height
             resizeHeight: true,
             // hook into start drag operation (event passed)
-            onStartDragging: null,
+            onDragStart: null,
             // hook into stop drag operation (event passed)
-            onStopDragging: null,
+            onDragStop: null,
             // hook into each drag operation (event passed)
             onDrag: null
         };
         if (typeof options == "object") opt = $.extend(opt, options);
 
-        return this.each(function() {
+        
+        return this.each(function () {            
             var $el = $(this);
             var el = $el.get(0);
-            var $handle = $(opt.handleSelector);
+            var $handle;
+            if (opt.handleSelector)
+                $handle = $(opt.handleSelector);
+            else
+                $handle = $el; // use self for handle (usually not a good idea)
 
-            var startWidth, startHeight, startTransition;
+            var startWidth, startHeight, startTransition, startX, startY;
 
-            function nf(e) {
+            function noop(e) {
                 e.stopPropagation();
                 e.preventDefault();
             };
@@ -38,32 +43,29 @@
                 startWidth = parseInt($el.width(), 10);
                 startHeight = parseInt($el.height(), 10);
 
-                console.log("start: width: " + startWidth + " x: " + startX);
+                if (opt.onDragStart) {
+                    if (opt.onDragStart(e, $el, opt) === false)
+                        return;
+                }
 
-                opt.dragFunc = doDrag;
+                opt.dragFunc = doDrag; 
                 $(document).bind('mousemove.rsz', opt.dragFunc);
                 $(document).bind('mouseup.rsz', stopDragging);
-                $(document).bind('selectstart.rsz', nf);
+                $(document).bind('selectstart.rsz', noop); // disable selection
 
-                startTransition = $el.css("transition");
-                console.log(startTransition);
-                $el.css("transition", "none");
-                console.log($el.css("transition"));
+                startTransition = $el.css("transition");                
+                $el.css("transition", "none");                
 
-                if (opt.onStartDragging) opt.onStartDragging(e);
             }
 
             function doDrag(e) {
-                var newWidth = startWidth + e.clientX - startX;
-                console.log("before width: " + $el.width() + "   start width: " + startWidth + " new x:" + e.clientX + " start x:" + startX + "  new width: " + newWidth);
+                var newWidth = startWidth + e.clientX - startX;                
                 if (opt.resizeWidth)
                     $el.width(newWidth);
 
                 if (opt.resizeHeight) $el.height(startHeight + e.clientY - startY);
                 if (opt.onDrag)
-                    opt.onDrag(e);
-
-                console.log("after width: " + $el.width());
+                    opt.onDrag(e,$el,opt);
             }
 
             function stopDragging(e) {
@@ -72,10 +74,10 @@
 
                 $(document).unbind('mousemove.rsz', opt.dragFunc);
                 $(document).unbind('mouseup.rsz', stopDragging);
-                $(document).unbind('selectstart.rsz', nf);
+                $(document).unbind('selectstart.rsz', noop);
 
                 $el.css("transition", startTransition);
-                if (opt.onStopDragging) opt.onStopDragging(e);
+                if (opt.onDragStop) opt.onDragStop(e,$el,opt);
 
                 return false;
             }

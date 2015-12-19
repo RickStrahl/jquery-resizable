@@ -10,9 +10,11 @@ rename = require('gulp-rename');
 
 gulp.task('scripts', function () {
 
+    // uncompressed
     gulp.src(['src/jquery-resizable.js'])
         .pipe(gulp.dest("./"));
 
+    // compressed
     gulp.src(['src/jquery-resizable.js'])
         //.pipe(sourcemaps.init())
         .pipe(uglify())        

@@ -43,7 +43,7 @@ var opt = {
 ```
 
 **handleSelector**  
-A jQuery select or DOM element that acts as a selector. This can be a string, a DOM object or an existing jQuery selector.
+A jQuery selector or DOM element that acts as a selector. This can be a string, a DOM object or an existing jQuery selector.
 
 If no selector is passed the element itself becomes resizable. Usually this results in undesirable behavior but you can  limit the drag start location using the `onDragStart` handler.
 

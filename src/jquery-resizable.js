@@ -22,12 +22,7 @@
         
         return this.each(function () {            
             var $el = $(this);
-            var el = $el.get(0);
-            var $handle;
-            if (opt.handleSelector)
-                $handle = $(opt.handleSelector);
-            else
-                $handle = $el; // use self for handle (usually not a good idea)
+            var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
             var startWidth, startHeight, startTransition, startX, startY;
 
@@ -55,7 +50,6 @@
 
                 startTransition = $el.css("transition");                
                 $el.css("transition", "none");                
-
             }
 
             function doDrag(e) {
