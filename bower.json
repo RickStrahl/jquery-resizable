@@ -1,6 +1,6 @@
 {
   "name": "jquery-resizable",
-  "version": "0.1",
+  "version": "0.10.0",
   "main": "jquery-resizable.js",
   "license": "MIT",
   "ignore": [
