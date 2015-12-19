@@ -2,10 +2,12 @@
 #### A tiny jQuery plug-in to make HTML DOM elements resizable 
 
 
-This small jQuery plug-in allows you to make DOM elements resizable using a sizing handle. It's useful if you want to add resizing features to your HTML layouts for things like like resizable dialogs, splitter panes or elements that can be resized by a user in a layout.
+This small jQuery plug-in allows you to make DOM elements resizable using a sizing handle. It works with Mouse and Touch events so you can resize elements on mobile devices. 
+
+Resizables are useful if you want to add resizing features to your HTML layouts for things like like resizable dialogs, splitter panes or elements that can be resized by a user in a layout.
 
 ```javascript
-jQuery.fn.resizable = function(options)
+$(selector).resizable(options);
 ```
 
 ### Usage
@@ -74,7 +76,7 @@ Hook event fired when the drag operation completes and the mouse is released. Re
 ### License 
 Licensed under the MIT License. There's no charge to use, integrate or modify the code for this project. You are free to use it in personal, commercial, government and any other type of application.
 
-All source code is copyright West Wind Technologies, regardless of changes made to them. Any source code modifications must leave the original copyright code headers intact.
+All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardless of changes made to them. Any source code modifications must leave the original copyright code headers intact.
 
 ### Warranty Disclaimer: No Warranty!
 
