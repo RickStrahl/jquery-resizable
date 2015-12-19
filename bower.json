@@ -5,8 +5,11 @@
   "license": "MIT",
   "ignore": [
     "*.sln",
-    ".*",    
-    "src"   
+    ".*",
+    "src",
+    "gulpfile.js",
+    "package.json",
+    "sample"
   ],
   "keywords": [
     "resizable",
