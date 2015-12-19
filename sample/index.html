@@ -18,16 +18,24 @@
     </style>
 </head>
 <body>
-    <div class="page-container">
+<div class="page-container">
 
-        <h1>jquery-resizable Samples</h1>
-        <hr />
+    <h1>jquery-resizable Samples</h1>
+    <hr/>
 
-        <h3>Samples</h3>
-        <ul>
-            <li><a href="ResizableBox.html">Simple Resizable Box</a></li>
-            <li><a href="SplitterPanel.html">Splitter Panels</a></li>
-        </ul>
-    </div>
+    <h3>Samples</h3>
+    <ul>
+        <li><a href="ResizableBox.html">Simple Resizable Box</a></li>
+        <li><a href="SplitterPanel.html">Splitter Panels</a></li>
+    </ul>
+</div>
+
+<script>
+$(".box").resizable({
+    handleSelector: "size-grip",
+    resizeHeight: false,
+    resizeWidth: true
+});
+</script>
 </body>
 </html>

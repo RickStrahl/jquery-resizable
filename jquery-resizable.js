@@ -4,7 +4,7 @@
 
     $.fn.resizable = function fnResizable(options) {
         var opt = {
-            // optional selector for handle that starts dragging
+            // selector for handle that starts dragging
             handleSelector: null,
             // resize the width
             resizeWidth: true,
@@ -13,7 +13,7 @@
             // hook into start drag operation (event passed)
             onDragStart: null,
             // hook into stop drag operation (event passed)
-            onDragStop: null,
+            onDragEnd: null,
             // hook into each drag operation (event passed)
             onDrag: null
         };
@@ -89,7 +89,7 @@
                 $(document).unbind('selectstart.rsz', noop);
 
                 $el.css("transition", startTransition);
-                if (opt.onDragStop) opt.onDragStop(e, $el, opt);
+                if (opt.onDragEnd) opt.onDragEnd(e, $el, opt);
 
                 return false;
             }

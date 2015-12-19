@@ -42,9 +42,9 @@ var opt = {
     // resize the height
     resizeHeight: true,
     // hook into start drag operation (event,$el,opt passed - return false to abort drag)
-    onStartDragging: null,
+    onDragStart: null,
     // hook into stop drag operation (event,$el,opt passed)
-    onStopDragging: null,
+    onDrageEnd: null,
     // hook into each drag operation (event,$el,opt passed)
     onDrag: null
 };
@@ -75,7 +75,7 @@ $(".box").resizable({
 **onDrag**  
 Hook method fired when ever the mouse cursor moves. Receives event, jquery selected element and the options object.
 
-**onDragStop**  
+**onDragEnd**  
 Hook event fired when the drag operation completes and the mouse is released. Receives event, jquery selected element and the options object.
 
 
