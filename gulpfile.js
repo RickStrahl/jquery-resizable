@@ -4,27 +4,47 @@ Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
 */
 var gulp = require('gulp');
 var rimraf = require('gulp-rimraf');
-uglify = require('gulp-uglify');
-rename = require('gulp-rename');
-
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+var sourcemaps = require('gulp-sourcemaps');
+var livereload = require('gulp-livereload');
 
 gulp.task('scripts', function () {
-
-    // uncompressed
-    gulp.src(['src/jquery-resizable.js'])
-        .pipe(gulp.dest("./"));
-
+    
     // compressed
-    gulp.src(['src/jquery-resizable.js'])
-        //.pipe(sourcemaps.init())
+    gulp.src(['src/*.js'])
+        .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))        
         .pipe(uglify())        
-        .pipe(rename({ suffix: '.min' }))        
-        .pipe(gulp.dest('./'));
+        .pipe(sourcemaps.write('./', {
+            sourceMappingURL: function(file) {
+                return file.relative + '.map';
+            }
+        }))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(gulp.dest('./dist'));
+});
+gulp.task('fix', function() {
+    gulp.src(['./dist/**.js.min.map'])
+        .pipe(rimraf())
+        .pipe(rename(function(path) {                
+                path.dirname = "";
+                path.basename = "jquery-resizable";
+                path.extname = ".js.map";
+            })        )
+        .pipe(gulp.dest('./dist'));
 });
 
+
 gulp.task('clean', function () {
-    gulp.src(['./*.min.*'])
-        .pipe(rimraf());
+    gulp.src(['./dist/**.*'])
+        .pipe(rimraf({read: false}));    
+});
+
+gulp.task('watch', function () {
+    // Create LiveReload server
+    livereload.listen();
+
+    gulp.watch(['src/*.js'], ['scripts']);    
 });
 
 gulp.task('default', function() {

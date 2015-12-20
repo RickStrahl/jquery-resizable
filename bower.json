@@ -1,6 +1,6 @@
 {
   "name": "jquery-resizable",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "main": "jquery-resizable.js",
   "license": "MIT",
   "ignore": [
@@ -13,7 +13,10 @@
   ],
   "keywords": [
     "resizable",
-    "jquery"    
+    "jquery"
   ],
-  "homepage": "https://github.com/RickStrahl/jquery-resizable"  
+  "homepage": "https://github.com/RickStrahl/jquery-resizable",
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
 }

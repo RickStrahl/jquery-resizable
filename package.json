@@ -4,8 +4,10 @@
   "description": "A tiny jquery component to make components resizable",
   "main": "gulpfile.js",
   "devDependencies": {
+    "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
-    "gulp-rimraf": "^0.2.0",    
+    "gulp-rimraf": "^0.2.0",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1"
   },
   "dependencies": {},

@@ -10,6 +10,12 @@ Resizables are useful if you want to add resizing features to your HTML layouts 
 * [Simple Resizable Box](http://codepen.io/rstrahl/pen/bEVBdE)
 * [Resizable Split Panels](http://codepen.io/rstrahl/pen/eJZQej)
 
+### Installation
+You can install this component from Bower:
+
+```
+$ bower install jquery-resizable
+```
 
 ### Usage
 ```javascript

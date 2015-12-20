@@ -101,14 +101,14 @@ cursor: nwse-resize;
 <script>
     $(".box").resizable({ handleSelector: ".win-size-grip" });
 
-    //$(".box").resizable({
-    //    onDragStart: function (e, $el, opt) {
-    //        $el.css("cursor", "nwse-resize");
-    //    },
-    //    onDragStop: function (e, $el, opt) {
-    //        $el.css("cursor", "");
-    //    }
-    //});        
+    $(".box").resizable({
+        onDragStart: function (e, $el, opt) {
+            $el.css("cursor", "nwse-resize");
+        },
+        onDragStop: function (e, $el, opt) {
+            $el.css("cursor", "");
+        }
+    });        
 </script>
 </body>
 </html>

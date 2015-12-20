@@ -1,7 +1,7 @@
 /// <reference path="jquery.js" />
 /*
 jquery-watcher 
-Version 0.10 - 12/20/2015
+Version 0.11 - 12/20/2015
 © 2015 Rick Strahl, West Wind Technologies 
 www.west-wind.com
 Licensed under MIT License
