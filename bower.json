@@ -5,8 +5,7 @@
   "license": "MIT",
   "ignore": [
     "*.sln",
-    ".*",
-    "src",
+    ".*",    
     "gulpfile.js",
     "package.json",
     "sample"

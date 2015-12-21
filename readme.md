@@ -1,7 +1,6 @@
 # jquery-resizable 
 #### A tiny jQuery plug-in to make HTML DOM elements resizable 
 
-
 This small jQuery plug-in allows you to make DOM elements resizable using a sizing handle. It works with Mouse and Touch events so you can resize elements on mobile devices. 
 
 Resizables are useful if you want to add resizing features to your HTML layouts for things like like resizable dialogs, splitter panes or elements that can be resized by a user in a layout.
@@ -17,11 +16,16 @@ You can install this component from Bower:
 $ bower install jquery-resizable
 ```
 
+or from NPM - note the divergant name due to an existing package with the same name:
+
+```
+npm install jquery-resizable-dom
+```
+
 ### Usage
 ```javascript
 $(selector).resizable(options);
 ```
-
 
 To use this plug-in add a script reference to jQuery and the resizable plug-in. Then use a jQuery selector to select the element to resize and provide an additional `.handleSelector` to select the sizing handle which initiates the resize operation.
 
@@ -96,5 +100,7 @@ IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIB
 
 ## Change Log
 
-#### Version 0.1
-* **initial release on GitHub**
+
+
+#### Version 0.11
+* **initial release **
