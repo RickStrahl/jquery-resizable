@@ -5,9 +5,14 @@ This small jQuery plug-in allows you to make DOM elements resizable using a sizi
 
 Resizables are useful if you want to add resizing features to your HTML layouts for things like like resizable dialogs, splitter panes or elements that can be resized by a user in a layout.
 
+
 ### Samples on CodePen
 * [Simple Resizable Box](http://codepen.io/rstrahl/pen/bEVBdE)
 * [Resizable Split Panels](http://codepen.io/rstrahl/pen/eJZQej)
+
+There's a more info on the how's and why's in this blog post:
+
+* [A small jquery-resizable Plug-in](http://weblog.west-wind.com/posts/2015/Dec/21/A-small-jQuery-Resizable-Plugin)
 
 ### Installation
 You can install this component from Bower:
