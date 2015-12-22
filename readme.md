@@ -1,5 +1,5 @@
 # jquery-resizable 
-#### A tiny jQuery plug-in to make HTML DOM elements resizable 
+#### A small jQuery plug-in to make HTML DOM elements resizable 
 
 This small jQuery plug-in allows you to make DOM elements resizable using a sizing handle. It works with Mouse and Touch events so you can resize elements on mobile devices. 
 
@@ -54,7 +54,7 @@ var opt = {
     // hook into start drag operation (event,$el,opt passed - return false to abort drag)
     onDragStart: null,
     // hook into stop drag operation (event,$el,opt passed)
-    onDrageEnd: null,
+    onDragEnd: null,
     // hook into each drag operation (event,$el,opt passed)
     onDrag: null
 };
