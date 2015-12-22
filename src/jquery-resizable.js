@@ -1,7 +1,7 @@
 /// <reference path="jquery.js" />
 /*
 jquery-watcher 
-Version 0.11 - 12/20/2015
+Version 0.12 - 12/22/2015
 © 2015 Rick Strahl, West Wind Technologies 
 www.west-wind.com
 Licensed under MIT License
@@ -31,7 +31,7 @@ Licensed under MIT License
             var $el = $(this);
             var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
-            var startPos, startTransition;
+            var startPos, startTransition;            
 
             function noop(e) {
                 e.stopPropagation();
@@ -47,13 +47,14 @@ Licensed under MIT License
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
                 }
-
+                    
                 opt.dragFunc = doDrag; //debounce(doDrag, 2);
                 
                 $(document).bind('mousemove.rsz', opt.dragFunc);
                 $(document).bind('mouseup.rsz', stopDragging);                
+                
 
-                if (window.Touch) {
+                if (window.Touch || navigator.maxTouchPoints) {                    
                     $(document).bind('touchmove.rsz', opt.dragFunc);
                     $(document).bind('touchend.rsz', stopDragging);                    
                 }
@@ -66,7 +67,7 @@ Licensed under MIT License
 
             function doDrag(e) {                
                 var pos = getMousePos(e);
-
+                
                 if (opt.resizeWidth) {
                     var newWidth = startPos.width + pos.x - startPos.x;                    
                     $el.width(newWidth);
@@ -80,7 +81,7 @@ Licensed under MIT License
                 if (opt.onDrag)
                     opt.onDrag(e, $el, opt);
 
-                // console.log('dragging', e, pos, newWidth, newHeight);
+                //console.log('dragging', e, pos, newWidth, newHeight);
             }
 
             function stopDragging(e) {                
@@ -90,7 +91,7 @@ Licensed under MIT License
                 $(document).unbind('mousemove.rsz', opt.dragFunc);
                 $(document).unbind('mouseup.rsz', stopDragging);
 
-                if (window.Touch) {
+                if (window.Touch || navigator.maxTouchPoints) {
                     $(document).unbind('touchmove.rsz', opt.dragFunc);
                     $(document).unbind('touchend.rsz', stopDragging);
                 }
@@ -102,7 +103,7 @@ Licensed under MIT License
                 return false;
             }
             function getMousePos(e) {
-                var pos = { x: 0, y: 0, width: 0, height: 0 };
+                var pos = { x: 0, y: 0, width: 0, height: 0 };                
                 if (typeof e.clientX === "number") {
                     pos.x = e.clientX;
                     pos.y = e.clientY;
@@ -117,7 +118,6 @@ Licensed under MIT License
 
             // Initialization
             $el.addClass("resizable");
-
             $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
         });
     };

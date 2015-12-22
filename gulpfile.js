@@ -7,8 +7,7 @@ var livereload = require('gulp-livereload');
 var jsFilter = require('gulp-filter')(['*.js'], { restore: true });
 
 gulp.task('scripts', function () {
-    
-    // compressed
+
     gulp.src(['src/*.js'])
         .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
         .pipe(uglify())   
@@ -16,7 +15,7 @@ gulp.task('scripts', function () {
             sourceMappingURL: function(file) {
                 return file.relative + '.map';
             }
-        }))
+        }))        
         .pipe(jsFilter)
         .pipe(rename({ suffix: '.min' }))
         .pipe(jsFilter.restore)
