@@ -24,7 +24,7 @@ Licensed under MIT License
             onDragEnd: null,
             // hook into each drag operation (event passed)
             onDrag: null,
-            // disable touch-action on $handle container
+            // disable touch-action on $handle
             // prevents browser level actions like forward back gestures
             touchActionNone: true
         };
@@ -42,7 +42,7 @@ Licensed under MIT License
             };
             
             if (opt.touchActionNone)
-                $handle.parent().css("touch-action", "none");
+                $handle.css("touch-action", "none");
 
             function startDragging(e) {
                 startPos = getMousePos(e);
