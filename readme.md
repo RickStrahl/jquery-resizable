@@ -62,7 +62,7 @@ var opt = {
     onDragEnd: null,
     // hook into each drag operation (event,$el,opt passed)
     onDrag: null
-    // disable touch-action on $handle container
+    // disable touch-action on the $handle
     // prevents browser level actions like forward back gestures
     touchActionNone: true
 };
@@ -97,7 +97,7 @@ Hook method fired when ever the mouse cursor moves. Receives event, jquery selec
 Hook event fired when the drag operation completes and the mouse is released. Receives event, jquery selected element and the options object.
 
 **touchActionNone**  
-Sets touch-action: none to avoid browser page level gestures interfering with the drag initiation especially on IE and Edge browsers.
+Sets touch-action: none on the handle element to prevent browser interference to initiating touch drag operations especially on Internet Explorer, Edge and Windows 10 browsers.
 
 ### License 
 Licensed under the MIT License. There's no charge to use, integrate or modify the code for this project. You are free to use it in personal, commercial, government and any other type of application.
