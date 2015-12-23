@@ -23,7 +23,10 @@ Licensed under MIT License
             // hook into stop drag operation (event passed)
             onDragEnd: null,
             // hook into each drag operation (event passed)
-            onDrag: null
+            onDrag: null,
+            // disable touch-action on $handle container
+            // prevents browser level actions like forward back gestures
+            touchActionNone: true
         };
         if (typeof options == "object") opt = $.extend(opt, options);
         
@@ -31,38 +34,37 @@ Licensed under MIT License
             var $el = $(this);
             var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
-            var startPos, startTransition, startTouchAction;         
+            var startPos, startTransition;
 
             function noop(e) {
                 e.stopPropagation();
                 e.preventDefault();
             };
+            
+            if (opt.touchActionNone)
+                $handle.parent().css("touch-action", "none");
 
             function startDragging(e) {
-                startPos = getMousePos(e);     
-                startPos.width =  parseInt($el.width(), 10);
+                startPos = getMousePos(e);
+                startPos.width = parseInt($el.width(), 10);
                 startPos.height = parseInt($el.height(), 10);
 
+                startTransition = $el.css("transition");
+                $el.css("transition", "none");
+                
                 if (opt.onDragStart) {
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
                 }
                 opt.dragFunc = doDrag;
-                
+
                 $(document).bind('mousemove.rsz', opt.dragFunc);
-                $(document).bind('mouseup.rsz', stopDragging);                
-                
-                if (window.Touch || navigator.maxTouchPoints) {                    
+                $(document).bind('mouseup.rsz', stopDragging);
+                if (window.Touch || navigator.maxTouchPoints) {
                     $(document).bind('touchmove.rsz', opt.dragFunc);
                     $(document).bind('touchend.rsz', stopDragging);                    
                 }
-
                 $(document).bind('selectstart.rsz', noop); // disable selection
-
-                startTransition = $el.css("transition");
-                $el.css("transition", "none");
-                startTouchAction = $(document.body).css("touch-action");
-                $(document.body).css("touch-action", "none");
             }
 
             function doDrag(e) {                
@@ -99,9 +101,9 @@ Licensed under MIT License
 
                 // reset changed values
                 $el.css("transition", startTransition);
-                $(document.body).css("touch-action", startTouchAction);
 
-                if (opt.onDragEnd) opt.onDragEnd(e, $el, opt);
+                if (opt.onDragEnd)
+                    opt.onDragEnd(e, $el, opt);
                 
                 return false;
             }
