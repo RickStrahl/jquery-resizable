@@ -31,7 +31,7 @@ Licensed under MIT License
             var $el = $(this);
             var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
-            var startPos, startTransition;            
+            var startPos, startTransition, startTouchAction;         
 
             function noop(e) {
                 e.stopPropagation();
@@ -47,13 +47,11 @@ Licensed under MIT License
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
                 }
-                    
-                opt.dragFunc = doDrag; //debounce(doDrag, 2);
+                opt.dragFunc = doDrag;
                 
                 $(document).bind('mousemove.rsz', opt.dragFunc);
                 $(document).bind('mouseup.rsz', stopDragging);                
                 
-
                 if (window.Touch || navigator.maxTouchPoints) {                    
                     $(document).bind('touchmove.rsz', opt.dragFunc);
                     $(document).bind('touchend.rsz', stopDragging);                    
@@ -61,8 +59,10 @@ Licensed under MIT License
 
                 $(document).bind('selectstart.rsz', noop); // disable selection
 
-                startTransition = $el.css("transition");                
-                $el.css("transition", "none");                
+                startTransition = $el.css("transition");
+                $el.css("transition", "none");
+                startTouchAction = $(document.body).css("touch-action");
+                $(document.body).css("touch-action", "none");
             }
 
             function doDrag(e) {                
@@ -97,9 +97,12 @@ Licensed under MIT License
                 }
                 $(document).unbind('selectstart.rsz', noop);
 
+                // reset changed values
                 $el.css("transition", startTransition);
-                if (opt.onDragEnd) opt.onDragEnd(e, $el, opt);
+                $(document.body).css("touch-action", startTouchAction);
 
+                if (opt.onDragEnd) opt.onDragEnd(e, $el, opt);
+                
                 return false;
             }
             function getMousePos(e) {
