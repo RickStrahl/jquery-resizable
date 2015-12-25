@@ -31,19 +31,22 @@ Licensed under MIT License
         if (typeof options == "object") opt = $.extend(opt, options);
         
         return this.each(function () {            
+            var startPos, startTransition;
+            
             var $el = $(this);
             var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
-            var startPos, startTransition;
+            if (opt.touchActionNone)
+                $handle.css("touch-action", "none");
+
+            $el.addClass("resizable");
+            $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
 
             function noop(e) {
                 e.stopPropagation();
                 e.preventDefault();
             };
             
-            if (opt.touchActionNone)
-                $handle.css("touch-action", "none");
-
             function startDragging(e) {
                 startPos = getMousePos(e);
                 startPos.width = parseInt($el.width(), 10);
@@ -107,6 +110,7 @@ Licensed under MIT License
                 
                 return false;
             }
+
             function getMousePos(e) {
                 var pos = { x: 0, y: 0, width: 0, height: 0 };                
                 if (typeof e.clientX === "number") {
@@ -119,11 +123,7 @@ Licensed under MIT License
                     return null;
 
                 return pos;
-            }
-
-            // Initialization
-            $el.addClass("resizable");
-            $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
+            }            
         });
     };
 })(jQuery,undefined);
