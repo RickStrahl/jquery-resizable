@@ -110,7 +110,9 @@ IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIB
 
 ## Change Log
 
-
+#### Version 0.13
+* **Fix Touch Support in IE and Edge**  
+Added touch-action:none logic to the drag handle to avoid drag initiation issues in IE and Edge which won't fire touchStart events when the document has touch gestures enabled.
 
 #### Version 0.11
 * **initial release **

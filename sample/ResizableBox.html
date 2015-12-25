@@ -10,49 +10,49 @@
             font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             padding: 0;
             margin: 0;
-
-            /* disable document level touch actions */
-            touch-action: none;  
         }
-        .page-container { margin: 20px; }
 
-.box {
-    margin: 40px;
-    box-shadow: 5px 5px 10px #535353;               
-    border: 1px silver;
-    border-radius: 4px;
-    position: relative;
-    width: 500px; 
-    height: 400px;
+        .page-container {
+            margin: 20px;
+        }
+        .box {
+            margin: 40px;
+            box-shadow: 5px 5px 10px #535353;
+            border: 1px silver;
+            border-radius: 4px;
+            position: relative;
+            width: 500px;
+            height: 400px;
+            overflow: hidden;
+            /* limit size with min/max-width/height*/
+            min-height: 100px;
+            min-width: 200px;
+            max-width: 999px;
+            max-height: 800px;
+        }
 
-    overflow: hidden;
+        .boxheader {
+            background: #535353;
+            color: white;
+            padding: 5px;
+        }
 
-    /* limit size with min/max-width/height*/
-    min-height: 100px;
-    min-width: 200px;
+        .boxbody {
+            font-size: 24pt;
+            padding: 20px;
+        }
 
-    max-width: 999px;
-    max-height: 800px;
-}
-.boxheader {
-background: #535353;
-color: white;
-padding: 5px;
-}
-.boxbody {            
-    font-size: 24pt;
-    padding: 20px;
-}
-.win-size-grip {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    padding: 4px;    
-    bottom: 0;
-    right: 0;
-cursor: nwse-resize;
-    background: url(../assets/wingrip.png) no-repeat;
-}
+        .win-size-grip {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            padding: 4px;
+            bottom: 0;
+            right: 0;
+            cursor: nwse-resize;
+            background: url(../assets/wingrip.png) no-repeat;
+        }
+
         pre {
             margin: 20px;
             padding: 10px;
