@@ -9,6 +9,7 @@ Resizables are useful if you want to add resizing features to your HTML layouts 
 ### Samples on CodePen
 * [Simple Resizable Box](http://codepen.io/rstrahl/pen/bEVBdE)
 * [Resizable Split Panels](http://codepen.io/rstrahl/pen/eJZQej)
+* [Table Column Resizing](http://codepen.io/rstrahl/pen/xZErXz)
 
 There's a more info on the how's and why's in this blog post:
 
