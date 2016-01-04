@@ -151,36 +151,28 @@
 </pre>
     </div>
 
-    <style>
-        .resizer {
-            position: absolute;
-            top: 0;
-            right: 0;
-            bottom: 0;
-            left: auto;
-            width: 3px;
-            cursor: col-resize;
-        }
-    </style>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
-    <script src="../src/jquery-resizable.js"></script>
-    <script>
-        //$("td,th")
-        $("td:first-child,td:nth-child(2)")
-            .css({ position: "relative" })
-            .prepend("<div class='resizer'></div>")            
-            .resizable({
-                resizeHeight: false,
-                // we use the column as handle and filter
-                // by the contained .resizer element
-                handleSelector: "",
-                onDragStart: function (e, $el, opt) {
-                    // only drag resizer
-                    if (!$(e.target).hasClass("resizer"))
-                        return false;
-                    return true;
-                }
-            });
-    </script>
+<style>
+    /*
+        this is important!
+        make sure you define this here
+        or in jQuery codef
+    */
+    .resizer {
+        position: absolute;
+        top: 0;
+        right: -8px;
+        bottom: 0;
+        left: auto;
+        width: 16px;    
+        cursor: col-resize;       
+    }
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
+<script src="../src/jquery-resizable.js"></script>
+<script src="../src/jquery-resizableTableColumns.js"></script>
+<script>
+    $("td,th").resizableTableColumns();
+    //$("td:first-child,td:nth-child(2),td:nth-child(3)").resizableTableColumns();
+</script>
 </body>
 </html>

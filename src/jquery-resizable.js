@@ -1,7 +1,8 @@
 /// <reference path="jquery.js" />
+/// <reference path="jquery-resizable.js" />
 /*
-jquery-watcher 
-Version 0.13 - 12/22/2015
+jquery-resizable
+Version 0.14 - 1/4/2015
 © 2015 Rick Strahl, West Wind Technologies 
 www.west-wind.com
 Licensed under MIT License

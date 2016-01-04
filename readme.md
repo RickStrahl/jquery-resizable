@@ -100,6 +100,44 @@ Hook event fired when the drag operation completes and the mouse is released. Re
 **touchActionNone**  
 Sets touch-action: none on the handle element to prevent browser interference to initiating touch drag operations especially on Internet Explorer, Edge and Windows 10 browsers.
 
+
+## jquery-resizableTablePlugin
+
+### Usage
+```javascript
+$(selector).resizableTableColumns(options);
+```
+
+To use this plug-in add a script reference to jQuery and the resizable and resizableTableColumns plug-in. Then use a jQuery selector to select columns and headers you want to resize. You also need to provide the CSS for the **.resizer** class shown below.
+
+```html
+<style>
+    /*
+        this is important!
+        make sure you define this here
+        or in jQuery codef
+    */
+    .resizer {
+        position: absolute;
+        top: 0;
+        right: -8px;
+        bottom: 0;
+        left: auto;
+        width: 16px;    
+        cursor: col-resize;       
+    }
+</style>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
+<script src="../src/jquery-resizable.js"></script>
+<script src="../src/jquery-resizableTableColumns.js"></script>
+<script>
+    $("td,th").resizableTableColumns();
+    //$("td:first-child,td:nth-child(2),td:nth-child(3)").resizableTableColumns();
+</script>
+```
+For more info on this plug-in please see the [jQuery-resizable and Table Column Resizing Blog post](http://weblog.west-wind.com/posts/2016/Jan/04/jQueryresizable-and-Table-Column-Resizing) that describes this plug-in in more detail.
+
+
 ### License 
 Licensed under the MIT License. There's no charge to use, integrate or modify the code for this project. You are free to use it in personal, commercial, government and any other type of application.
 
@@ -110,6 +148,10 @@ All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardl
 IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 ## Change Log
+
+#### Version 0.14
+* **Add jquery-resizableTableColumns Plugin**  
+Added a small wrapper plugin that allows resizing of table columns and headers.
 
 #### Version 0.13
 * **Fix Touch Support in IE and Edge**  
