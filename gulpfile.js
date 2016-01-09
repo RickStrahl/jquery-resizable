@@ -6,21 +6,25 @@ var sourcemaps = require('gulp-sourcemaps');
 var livereload = require('gulp-livereload');
 var jsFilter = require('gulp-filter')(['*.js'], { restore: true });
 
-gulp.task('scripts', function () {
+    gulp.task('scripts', function () {
 
-    gulp.src(['src/*.js'])
-        .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
-        .pipe(uglify())   
-        .pipe(sourcemaps.write('.', {
-            sourceMappingURL: function(file) {
-                return file.relative + '.map';
-            }
-        }))        
-        .pipe(jsFilter)
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(jsFilter.restore)
-        .pipe(gulp.dest('./dist'));
-});
+        gulp.src(['src/*.js'])
+            
+            .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
+            .pipe(uglify())   
+            .pipe(sourcemaps.write('.', {
+                sourceMappingURL: function(file) {
+                    return file.relative + '.map';
+                }
+            }))        
+            .pipe(jsFilter)
+            .pipe(rename({ suffix: '.min' }))
+            .pipe(jsFilter.restore)
+            .pipe(gulp.dest('./dist'));
+
+        gulp.src(['src/*.js'])
+            .pipe(gulp.dest('./dist'));
+    });
 
 gulp.task('fix', function() {
     gulp.src(['./dist/**.js.min.map'])

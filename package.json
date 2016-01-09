@@ -1,9 +1,10 @@
 {
   "name": "jquery-resizable-dom",
-  "version": "0.13.0",
+  "version": "0.15.0",
   "description": "A small jquery component to make components resizable",
   "main": "gulpfile.js",
   "devDependencies": {
+    "gulp-copy": "0.0.2",
     "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
     "gulp-rimraf": "^0.2.0",
@@ -20,8 +21,10 @@
   },
   "keywords": [
     "resizable",
+    "jquery-resizable",
+    "panel",
     "jquery",
-    "panel"
+    "jquery-plugin"
   ],
   "author": "Rick Strahl, West Wind Technologies",
   "license": "MIT",

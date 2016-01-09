@@ -101,12 +101,14 @@ Hook event fired when the drag operation completes and the mouse is released. Re
 Sets touch-action: none on the handle element to prevent browser interference to initiating touch drag operations especially on Internet Explorer, Edge and Windows 10 browsers.
 
 
-## jquery-resizableTablePlugin
+## jquery-resizableTableColumns Plugin
 
 ### Usage
 ```javascript
 $(selector).resizableTableColumns(options);
 ```
+
+The options are the same as for the **.resizable** plug-in. The only parameter you likely will override though is **.resizeHeight** which is defaulted to false.
 
 To use this plug-in add a script reference to jQuery and the resizable and resizableTableColumns plug-in. Then use a jQuery selector to select columns and headers you want to resize. You also need to provide the CSS for the **.resizer** class shown below.
 
