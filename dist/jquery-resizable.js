@@ -1,2 +1,135 @@
-!function(n,t){n.fn.resizable||(n.fn.resizable=function(t){var e={handleSelector:null,resizeWidth:!0,resizeHeight:!0,onDragStart:null,onDragEnd:null,onDrag:null,touchActionNone:!0,reverse:!1};return"object"==typeof t&&(e=n.extend(e,t)),this.each(function(){function t(n){n.stopPropagation(),n.preventDefault()}function o(o){a=u(o),a.width=parseInt(s.width(),10),a.height=parseInt(s.height(),10),c=s.css("transition"),s.css("transition","none"),e.onDragStart&&e.onDragStart(o,s,e)===!1||(e.dragFunc=i,n(document).bind("mousemove.rsz",e.dragFunc),n(document).bind("mouseup.rsz",r),(window.Touch||navigator.maxTouchPoints)&&(n(document).bind("touchmove.rsz",e.dragFunc),n(document).bind("touchend.rsz",r)),n(document).bind("selectstart.rsz",t))}function i(n){var t=u(n);if(e.resizeWidth){if(e.reverse)var o=a.width-t.x+a.x;else var o=a.width+t.x-a.x;s.width(o)}if(e.resizeHeight){var i=a.height+t.y-a.y;s.height(i)}e.onDrag&&e.onDrag(n,s,e)}function r(o){return o.stopPropagation(),o.preventDefault(),n(document).unbind("mousemove.rsz",e.dragFunc),n(document).unbind("mouseup.rsz",r),(window.Touch||navigator.maxTouchPoints)&&(n(document).unbind("touchmove.rsz",e.dragFunc),n(document).unbind("touchend.rsz",r)),n(document).unbind("selectstart.rsz",t),s.css("transition",c),e.onDragEnd&&e.onDragEnd(o,s,e),!1}function u(n){var t={x:0,y:0,width:0,height:0};if("number"==typeof n.clientX)t.x=n.clientX,t.y=n.clientY;else{if(!n.originalEvent.touches)return null;t.x=n.originalEvent.touches[0].clientX,t.y=n.originalEvent.touches[0].clientY}return t}var a,c,s=n(this),d=e.handleSelector?n(e.handleSelector):s;e.touchActionNone&&d.css("touch-action","none"),s.addClass("resizable"),d.bind("mousedown.rsz touchstart.rsz",o)})})}(jQuery,void 0);
-//# sourceMappingURL=jquery-resizable.js.map
+/// <reference path="jquery.js" />
+/*
+jquery-resizable
+Version 0.14 - 1/4/2015
+� 2015 Rick Strahl, West Wind Technologies
+www.west-wind.com
+Licensed under MIT License
+*/
+(function($, undefined) {
+    if ($.fn.resizable)
+        return;
+
+    $.fn.resizable = function fnResizable(options) {
+        var opt = {
+            // selector for handle that starts dragging
+            handleSelector: null,
+            // resize the width
+            resizeWidth: true,
+            // resize the height
+            resizeHeight: true,
+            // hook into start drag operation (event passed)
+            onDragStart: null,
+            // hook into stop drag operation (event passed)
+            onDragEnd: null,
+            // hook into each drag operation (event passed)
+            onDrag: null,
+            // disable touch-action on $handle
+            // prevents browser level actions like forward back gestures
+            touchActionNone: true,
+            // reverse direction
+            reverse: false
+        };
+        if (typeof options == "object") opt = $.extend(opt, options);
+
+        return this.each(function () {
+            var startPos, startTransition;
+
+            var $el = $(this);
+            var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
+
+            if (opt.touchActionNone)
+                $handle.css("touch-action", "none");
+
+            $el.addClass("resizable");
+            $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
+
+            function noop(e) {
+                e.stopPropagation();
+                e.preventDefault();
+            };
+
+            function startDragging(e) {
+                startPos = getMousePos(e);
+                startPos.width = parseInt($el.width(), 10);
+                startPos.height = parseInt($el.height(), 10);
+
+                startTransition = $el.css("transition");
+                $el.css("transition", "none");
+
+                if (opt.onDragStart) {
+                    if (opt.onDragStart(e, $el, opt) === false)
+                        return;
+                }
+                opt.dragFunc = doDrag;
+
+                $(document).bind('mousemove.rsz', opt.dragFunc);
+                $(document).bind('mouseup.rsz', stopDragging);
+                if (window.Touch || navigator.maxTouchPoints) {
+                    $(document).bind('touchmove.rsz', opt.dragFunc);
+                    $(document).bind('touchend.rsz', stopDragging);
+                }
+                $(document).bind('selectstart.rsz', noop); // disable selection
+            }
+
+            function doDrag(e) {
+                var pos = getMousePos(e);
+
+                if (opt.resizeWidth) {
+                    if (opt.reverse) {
+                        var newWidth = startPos.width - pos.x + startPos.x;
+                    } else {
+                        var newWidth = startPos.width + pos.x - startPos.x;
+                    }
+                    $el.width(newWidth);
+                }
+
+                if (opt.resizeHeight) {
+                    var newHeight = startPos.height + pos.y - startPos.y;
+                    $el.height(newHeight);
+                }
+
+                if (opt.onDrag)
+                    opt.onDrag(e, $el, opt);
+
+                //console.log('dragging', e, pos, newWidth, newHeight);
+            }
+
+            function stopDragging(e) {
+                e.stopPropagation();
+                e.preventDefault();
+
+                $(document).unbind('mousemove.rsz', opt.dragFunc);
+                $(document).unbind('mouseup.rsz', stopDragging);
+
+                if (window.Touch || navigator.maxTouchPoints) {
+                    $(document).unbind('touchmove.rsz', opt.dragFunc);
+                    $(document).unbind('touchend.rsz', stopDragging);
+                }
+                $(document).unbind('selectstart.rsz', noop);
+
+                // reset changed values
+                $el.css("transition", startTransition);
+
+                if (opt.onDragEnd)
+                    opt.onDragEnd(e, $el, opt);
+
+                return false;
+            }
+
+            function getMousePos(e) {
+                var pos = { x: 0, y: 0, width: 0, height: 0 };
+                if (typeof e.clientX === "number") {
+                    pos.x = e.clientX;
+                    pos.y = e.clientY;
+                } else if (e.originalEvent.touches) {
+                    pos.x = e.originalEvent.touches[0].clientX;
+                    pos.y = e.originalEvent.touches[0].clientY;
+                } else
+                    return null;
+
+                return pos;
+            }
+        });
+    };
+})(jQuery,undefined);
