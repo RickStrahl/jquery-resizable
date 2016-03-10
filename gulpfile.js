@@ -6,30 +6,33 @@ var sourcemaps = require('gulp-sourcemaps');
 var livereload = require('gulp-livereload');
 var jsFilter = require('gulp-filter')(['*.js'], { restore: true });
 
-    gulp.task('scripts', function () {
+gulp.task('scripts:minify', function () {
 
-        gulp.src(['src/*.js'])
-            
-            .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
-            .pipe(uglify())   
-            .pipe(sourcemaps.write('.', {
-                sourceMappingURL: function(file) {
-                    return file.relative + '.map';
-                }
-            }))        
-            .pipe(jsFilter)
-            .pipe(rename({ suffix: '.min' }))
-            .pipe(jsFilter.restore)
-            .pipe(gulp.dest('./dist'));
+    gulp.src(['src/*.js'])
+        .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
+        .pipe(uglify())
+        .pipe(sourcemaps.write('.', {
+            sourceMappingURL: function(file) {
+                return file.relative + '.map';
+            }
+        }))
+        // .pipe(jsFilter)
+        .pipe(rename({ suffix: '.min' }))
+        // .pipe(jsFilter.restore)
+        .pipe(gulp.dest('./dist'));
+});
 
-        gulp.src(['src/*.js'])
-            .pipe(gulp.dest('./dist'));
-    });
+gulp.task('scripts:copy', function () {
+    gulp.src(['src/*.js'])
+        .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('scripts', ['scripts:minify', 'scripts:copy']);
 
 gulp.task('fix', function() {
     gulp.src(['./dist/**.js.min.map'])
         .pipe(rimraf())
-        .pipe(rename(function(path) {                
+        .pipe(rename(function(path) {
                 path.dirname = "";
                 path.basename = "jquery-resizable";
                 path.extname = ".js.map";
@@ -40,18 +43,17 @@ gulp.task('fix', function() {
 
 gulp.task('clean', function () {
     gulp.src(['./dist/**.*'])
-        .pipe(rimraf({read: false}));    
+        .pipe(rimraf({read: false}));
 });
 
 gulp.task('watch', function () {
     // Create LiveReload server
     livereload.listen();
 
-    gulp.watch(['src/*.js'], ['scripts']);    
+    gulp.watch(['src/*.js'], ['scripts']);
 });
 
 gulp.task('default', function() {
     // place code for your default task here
-    gulp.start( 'scripts');
+    gulp.start('scripts');
 });
-
