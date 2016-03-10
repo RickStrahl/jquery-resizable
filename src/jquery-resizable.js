@@ -2,11 +2,11 @@
 /*
 jquery-resizable
 Version 0.14 - 1/4/2015
-© 2015 Rick Strahl, West Wind Technologies 
+ï¿½ 2015 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
 */
-(function($, undefined) {    
+(function($, undefined) {
     if ($.fn.resizable)
         return;
 
@@ -26,13 +26,15 @@ Licensed under MIT License
             onDrag: null,
             // disable touch-action on $handle
             // prevents browser level actions like forward back gestures
-            touchActionNone: true
+            touchActionNone: true,
+            // reverse direction
+            reverse: false
         };
         if (typeof options == "object") opt = $.extend(opt, options);
-        
-        return this.each(function () {            
+
+        return this.each(function () {
             var startPos, startTransition;
-            
+
             var $el = $(this);
             var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
 
@@ -46,7 +48,7 @@ Licensed under MIT License
                 e.stopPropagation();
                 e.preventDefault();
             };
-            
+
             function startDragging(e) {
                 startPos = getMousePos(e);
                 startPos.width = parseInt($el.width(), 10);
@@ -54,7 +56,7 @@ Licensed under MIT License
 
                 startTransition = $el.css("transition");
                 $el.css("transition", "none");
-                
+
                 if (opt.onDragStart) {
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
@@ -65,21 +67,25 @@ Licensed under MIT License
                 $(document).bind('mouseup.rsz', stopDragging);
                 if (window.Touch || navigator.maxTouchPoints) {
                     $(document).bind('touchmove.rsz', opt.dragFunc);
-                    $(document).bind('touchend.rsz', stopDragging);                    
+                    $(document).bind('touchend.rsz', stopDragging);
                 }
                 $(document).bind('selectstart.rsz', noop); // disable selection
             }
 
-            function doDrag(e) {                
+            function doDrag(e) {
                 var pos = getMousePos(e);
-                
+
                 if (opt.resizeWidth) {
-                    var newWidth = startPos.width + pos.x - startPos.x;                    
+                    if (opt.reverse) {
+                        var newWidth = startPos.width - pos.x + startPos.x;
+                    } else {
+                        var newWidth = startPos.width + pos.x - startPos.x;
+                    }
                     $el.width(newWidth);
                 }
 
                 if (opt.resizeHeight) {
-                    var newHeight = startPos.height + pos.y - startPos.y;                    
+                    var newHeight = startPos.height + pos.y - startPos.y;
                     $el.height(newHeight);
                 }
 
@@ -89,9 +95,9 @@ Licensed under MIT License
                 //console.log('dragging', e, pos, newWidth, newHeight);
             }
 
-            function stopDragging(e) {                
+            function stopDragging(e) {
                 e.stopPropagation();
-                e.preventDefault();                
+                e.preventDefault();
 
                 $(document).unbind('mousemove.rsz', opt.dragFunc);
                 $(document).unbind('mouseup.rsz', stopDragging);
@@ -107,12 +113,12 @@ Licensed under MIT License
 
                 if (opt.onDragEnd)
                     opt.onDragEnd(e, $el, opt);
-                
+
                 return false;
             }
 
             function getMousePos(e) {
-                var pos = { x: 0, y: 0, width: 0, height: 0 };                
+                var pos = { x: 0, y: 0, width: 0, height: 0 };
                 if (typeof e.clientX === "number") {
                     pos.x = e.clientX;
                     pos.y = e.clientY;
@@ -123,7 +129,7 @@ Licensed under MIT License
                     return null;
 
                 return pos;
-            }            
+            }
         });
     };
 })(jQuery,undefined);
