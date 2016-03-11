@@ -27,8 +27,10 @@ Licensed under MIT License
             // disable touch-action on $handle
             // prevents browser level actions like forward back gestures
             touchActionNone: true,
-            // reverse direction
-            reverse: false
+            // the side that the width resizing is relative to
+            resizeWidthFrom: 'right',
+            // the side that the height resizing is relative to
+            resizeHeightFrom: 'bottom',
         };
         if (typeof options == "object") opt = $.extend(opt, options);
 
@@ -76,7 +78,7 @@ Licensed under MIT License
                 var pos = getMousePos(e);
 
                 if (opt.resizeWidth) {
-                    if (opt.reverse) {
+                    if (opt.resizeWidthFrom === 'left') {
                         var newWidth = startPos.width - pos.x + startPos.x;
                     } else {
                         var newWidth = startPos.width + pos.x - startPos.x;
@@ -85,7 +87,11 @@ Licensed under MIT License
                 }
 
                 if (opt.resizeHeight) {
-                    var newHeight = startPos.height + pos.y - startPos.y;
+                    if (opt.resizeHeightFrom === 'top') {
+                        var newHeight = startPos.height - pos.y + startPos.y;
+                    } else {
+                        var newHeight = startPos.height + pos.y - startPos.y;
+                    }
                     $el.height(newHeight);
                 }
 

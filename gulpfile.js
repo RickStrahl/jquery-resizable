@@ -9,16 +9,13 @@ var jsFilter = require('gulp-filter')(['*.js'], { restore: true });
 gulp.task('scripts:minify', function () {
 
     gulp.src(['src/*.js'])
-        .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(sourcemaps.write('.', {
-            sourceMappingURL: function(file) {
-                return file.relative + '.map';
-            }
+            includeContent: false,
+            sourceRoot: '.'
         }))
-        // .pipe(jsFilter)
-        .pipe(rename({ suffix: '.min' }))
-        // .pipe(jsFilter.restore)
         .pipe(gulp.dest('./dist'));
 });
 
@@ -27,19 +24,7 @@ gulp.task('scripts:copy', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('scripts', ['scripts:minify', 'scripts:copy']);
-
-gulp.task('fix', function() {
-    gulp.src(['./dist/**.js.min.map'])
-        .pipe(rimraf())
-        .pipe(rename(function(path) {
-                path.dirname = "";
-                path.basename = "jquery-resizable";
-                path.extname = ".js.map";
-            })        )
-        .pipe(gulp.dest('./dist'));
-});
-
+gulp.task('scripts', ['clean', 'scripts:minify', 'scripts:copy']);
 
 gulp.task('clean', function () {
     gulp.src(['./dist/**.*'])
