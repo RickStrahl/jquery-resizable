@@ -4,7 +4,9 @@
   "description": "A small jquery component to make components resizable",
   "main": "gulpfile.js",
   "devDependencies": {
+    "gulp": "^3.9.1",
     "gulp-copy": "0.0.2",
+    "gulp-filter": "^4.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
     "gulp-rimraf": "^0.2.0",
