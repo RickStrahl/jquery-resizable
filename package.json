@@ -1,6 +1,6 @@
 {
   "name": "jquery-resizable-dom",
-  "version": "0.15.0",
+  "version": "0.16.0",
   "description": "A small jquery component to make components resizable",
   "main": "gulpfile.js",
   "devDependencies": {
