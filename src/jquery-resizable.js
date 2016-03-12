@@ -1,7 +1,7 @@
 /// <reference path="jquery.js" />
 /*
 jquery-resizable
-Version 0.14 - 1/4/2015
+Version 0.15 - 3/12/2016
 � 2015 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
@@ -17,7 +17,11 @@ Licensed under MIT License
             // resize the width
             resizeWidth: true,
             // resize the height
-            resizeHeight: true,
+            resizeHeight: true,            
+            // the side that the width resizing is relative to
+            resizeWidthFrom: 'right',
+            // the side that the height resizing is relative to
+            resizeHeightFrom: 'bottom',            
             // hook into start drag operation (event passed)
             onDragStart: null,
             // hook into stop drag operation (event passed)
@@ -26,11 +30,7 @@ Licensed under MIT License
             onDrag: null,
             // disable touch-action on $handle
             // prevents browser level actions like forward back gestures
-            touchActionNone: true,
-            // the side that the width resizing is relative to
-            resizeWidthFrom: 'right',
-            // the side that the height resizing is relative to
-            resizeHeightFrom: 'bottom',
+            touchActionNone: true
         };
         if (typeof options == "object") opt = $.extend(opt, options);
 

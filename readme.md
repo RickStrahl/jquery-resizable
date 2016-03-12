@@ -57,7 +57,11 @@ var opt = {
     resizeWidth: true,
     // resize the height
     resizeHeight: true,
-    // hook into start drag operation (event,$el,opt passed - return false to abort drag)
+    // the side that the width resizing is relative to
+    resizeWidthFrom: 'right',
+    // the side that the height resizing is relative to
+    resizeHeightFrom: 'bottom',            
+    // hook into start drag operation (event,$el,opt passed - return false to abort drag)    
     onDragStart: null,
     // hook into stop drag operation (event,$el,opt passed)
     onDragEnd: null,
@@ -76,6 +80,9 @@ If no selector is passed the element itself becomes resizable. Usually this resu
 
 **resizeWidth, resizeHeight**  
 These two boolean values determine whether the width or height are resizable. Both are true by default so disable which ever dimension you don't want to resize.
+
+**resizeWidthFrom,resizeHeightFrom**
+Determines which direction the reszing is done from. By default the directions are "right" and "bottom" but they could be "left" and "top". Useful for RTL locales where drag operations are naturally opposite to LTR.
 
 **onDragStart**  
 Hook method fired just before you start dragging. You can return an explicit `false` value to abort the drag operation. Gets passed the event, the selected jQuery element and the options object.
@@ -150,6 +157,9 @@ All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardl
 IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 ## Change Log
+#### Version 0.15
+* **Add *resizeWidthFrom* and *resizeHeightFrom* Options**  
+These options are useful in RTL environments where drag resizing operations are performed from the left edge of components. You can specify the source edge for resizing operations.
 
 #### Version 0.14
 * **Add jquery-resizableTableColumns Plugin**  
