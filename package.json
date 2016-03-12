@@ -24,7 +24,8 @@
     "jquery-resizable",
     "panel",
     "jquery",
-    "jquery-plugin"
+    "jquery-plugin",
+    "ecosystem:jquery"
   ],
   "author": "Rick Strahl, West Wind Technologies",
   "license": "MIT",
