@@ -24,7 +24,27 @@ gulp.task('scripts:copy', function () {
         .pipe(gulp.dest('./dist'));
 });
 
-gulp.task('scripts', ['clean', 'scripts:minify', 'scripts:copy']);
+gulp.task('scripts:create', function () {
+
+      gulp.src(['src/*.js'])
+          
+          .pipe(sourcemaps.init({ includeContent: false, sourceRoot: './' }))
+          .pipe(uglify())   
+          .pipe(sourcemaps.write('.', {
+              sourceMappingURL: function(file) {
+                  return file.relative + '.map';
+              }
+          }))        
+          .pipe(jsFilter)
+          .pipe(rename({ suffix: '.min' }))
+          .pipe(jsFilter.restore)
+          .pipe(gulp.dest('./dist'));
+
+      gulp.src(['src/*.js'])
+          .pipe(gulp.dest('./dist'));
+  });
+
+gulp.task('scripts', ['clean', 'scripts:create']);
 
 gulp.task('clean', function () {
     gulp.src(['./dist/**.*'])
