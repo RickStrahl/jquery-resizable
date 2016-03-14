@@ -2,7 +2,7 @@
   "name": "jquery-resizable-dom",
   "version": "0.16.0",
   "description": "A small jquery component to make components resizable",
-  "main": "gulpfile.js",
+  "main": "./dist/jquery-resizable.min.js",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-copy": "0.0.2",
@@ -34,5 +34,6 @@
   "bugs": {
     "url": "https://github.com/RickStrahl/jquery-resizable/issues"
   },
-  "homepage": "https://github.com/RickStrahl/jquery-resizable"
+  "homepage": "https://github.com/RickStrahl/jquery-resizable",
+
 }
