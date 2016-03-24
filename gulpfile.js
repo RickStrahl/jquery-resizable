@@ -4,7 +4,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var livereload = require('gulp-livereload');
-var jsFilter = require('gulp-filter')(['*.js'], { restore: true });
+var jsFilter = require('gulp-filter')(['**/*.js'], { restore: true });
 
 gulp.task('scripts:minify', function () {
 
