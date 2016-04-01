@@ -1,6 +1,6 @@
 {
   "name": "jquery-resizable-dom",
-  "version": "0.16.0",
+  "version": "0.17.0",
   "description": "A small jquery component to make components resizable",
   "main": "./dist/jquery-resizable.min.js",
   "devDependencies": {
