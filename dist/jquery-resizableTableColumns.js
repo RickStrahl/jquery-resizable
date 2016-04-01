@@ -11,15 +11,7 @@ Licensed under MIT License
     $.fn.resizableTableColumns = function(opt) {
         opt = $.extend({
             resizeHeight: false,
-            // we use the column as handle and filter
-            // by the contained .resizer element
-            handleSelector: "",
-            onDragStart: function(e, $el, opt) {
-                // only drag resizer
-                if (!$(e.target).hasClass("resizer"))
-                    return false;
-                return true;
-            }
+            handleSelector: "> .resizer",
         }, opt);
 
         return this.each(function() {

@@ -7,6 +7,16 @@ www.west-wind.com
 Licensed under MIT License
 */
 (function($, undefined) {
+    function getHandle(selector, $el) {
+        if (selector.trim()[0] === ">") {
+            selector = selector.trim().replace(/^>\s*/, "");
+
+            return $el.find(selector);
+        }
+
+        return selector ? $(selector) : $el;
+    }
+
     if ($.fn.resizable)
         return;
 
@@ -38,7 +48,8 @@ Licensed under MIT License
             var startPos, startTransition;
 
             var $el = $(this);
-            var $handle = opt.handleSelector ? $(opt.handleSelector) : $el;
+
+            var $handle = getHandle(opt.handleSelector, $el);
 
             if (opt.touchActionNone)
                 $handle.css("touch-action", "none");

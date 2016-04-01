@@ -78,6 +78,26 @@ A jQuery selector or DOM element that acts as a selector. This can be a string, 
 
 If no selector is passed the element itself becomes resizable. Usually this results in undesirable behavior but you can  limit the drag start location using the `onDragStart` handler.
 
+If the selector is prepended by a `>` the element is searched inside the resized component.
+
+```html
+<div class="box">
+  <div class="handle">
+  </div>
+</div>
+
+<div class="box">
+  <div class="handle">
+  </div>
+</div>
+```
+
+```javascript
+$(".box").resizable({
+  handleSelector: "> .handle"
+});
+```
+
 **resizeWidth, resizeHeight**  
 These two boolean values determine whether the width or height are resizable. Both are true by default so disable which ever dimension you don't want to resize.
 
