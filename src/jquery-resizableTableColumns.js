@@ -2,8 +2,8 @@
 /// <reference path="jquery-resizable.js" />
 /*
 jquery-resizable-table-columns
-Version 0.14 - 1/4/2015
-© 2015 Rick Strahl, West Wind Technologies 
+Version 0.17 - 1/4/2015
+© 2015-2016 Rick Strahl, West Wind Technologies 
 www.west-wind.com
 Licensed under MIT License
 */
