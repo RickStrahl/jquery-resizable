@@ -107,19 +107,28 @@ Determines which direction the reszing is done from. By default the directions a
 **onDragStart**  
 Hook method fired just before you start dragging. You can return an explicit `false` value to abort the drag operation. Gets passed the event, the selected jQuery element and the options object.
 
+**onDrag**  
+Hook method fired whenever the mouse cursor moves. Receives event, jquery selected element, newWidth, newHeight and the options object. Return an explicit value of `false` to indicate you don't want to set the newWidth, newHeight values after `ondrag` completes.
+
 ```javascript
 $(".box").resizable({
-    onDragStart: function (e, $el, opt) {
-        $el.css("cursor", "nwse-resize");
-    },
-    onDragStop: function (e, $el, opt) {
-        $el.css("cursor", "");
+    onDrag: function (e, $el, newWidth, newHeight, opt) {
+        // limit box size
+        if (newWidth > 300)
+           newWidth = 300;
+        if (newHeight > 200)
+           newHeight = 200;        
+
+        $el.width(newWidth);
+        $el.height(newHeight);
+
+        // explicitly return false so that 
+        // height and width are not set again
+        // Any other value sets original width/height value
+        return false;
     }
 });
 ```
-
-**onDrag**  
-Hook method fired when ever the mouse cursor moves. Receives event, jquery selected element and the options object.
 
 **onDragEnd**  
 Hook event fired when the drag operation completes and the mouse is released. Receives event, jquery selected element and the options object.
