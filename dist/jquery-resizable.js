@@ -93,21 +93,20 @@ Licensed under MIT License
                 else
                     newWidth = startPos.width + pos.x - startPos.x;
 
-
-                if (opt.resizeHeightFrom === 'top') {
+                if (opt.resizeHeightFrom === 'top')
                     newHeight = startPos.height - pos.y + startPos.y;
-                } else {
+                else
                     newHeight = startPos.height + pos.y - startPos.y;
-                }
+
+                if (opt.resizeHeight)
+                    $el.height(newHeight);
+
+                if (opt.resizeWidth)
+                    $el.width(newWidth);
 
 
-                if (!opt.onDrag || opt.onDrag(e, $el, newWidth, newHeight, opt) === false) {
-                    if (opt.resizeHeight)
-                        $el.height(newHeight);
-
-                    if (opt.resizeWidth)
-                        $el.width(newWidth);
-                }
+                if (opt.onDrag)
+                    opt.onDrag(e, $el, newWidth, newHeight, opt);                
             }
 
             function stopDragging(e) {
