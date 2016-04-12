@@ -119,7 +119,24 @@ $(".box").resizable({
 ```
 
 **onDrag**  
-Hook method fired when ever the mouse cursor moves. Receives event, jquery selected element and the options object.
+Hook method fired whenever the mouse cursor moves. 
+
+Receives jQuery event, jquery selected element, newWidth, newHeight and the options object.  Optionally return an explicit value of `false` to indicate you don't want to set the newWidth, newHeight values after `ondrag` completes.
+
+ onDrag: function (e, $el, newWidth, newHeight, opt) {
+     // limit box size
+     if (newWidth > 300)
+        newWidth = 300;
+     if (newHeight > 200)
+        newHeight = 200;        
+ 
+     $el.width(newWidth);
+     $el.height(newHeight);
+
+     // explicitly return **false** if you don't want 
+     // auto-height computation to occur
+     return false;
+});
 
 **onDragEnd**  
 Hook event fired when the drag operation completes and the mouse is released. Receives event, jquery selected element and the options object.
@@ -177,6 +194,14 @@ All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardl
 IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 ## Change Log
+#### Version 0.18
+* **onDrag Behavior Updated to support opting out of move operation**  
+Added additional logic to onDrag processing so that when `false` is returned the auto-resizing of the container is not applied. This allows you to take over the width calculation yourself for things like limiting resize size. <small>(changes by ohcibi)</small>
+
+#### Version 0.17
+* **Allow automated child selectors using `>` syntax in handle selector**  
+You can now specify `>` to select child elements inside of the container. Added to simplify referencing contained elements generically without having to explicitly specify the resized container. 
+
 #### Version 0.15
 * **Add *resizeWidthFrom* and *resizeHeightFrom* Options**  
 These options are useful in RTL environments where drag resizing operations are performed from the left edge of components. You can specify the source edge for resizing operations.
