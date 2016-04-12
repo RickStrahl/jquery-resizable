@@ -88,27 +88,22 @@ Licensed under MIT License
             function doDrag(e) {
                 var pos = getMousePos(e), newWidth, newHeight;
 
-                if (opt.resizeWidthFrom === 'left') {
+                if (opt.resizeWidthFrom === 'left')
                     newWidth = startPos.width - pos.x + startPos.x;
-                } else {
+                else
                     newWidth = startPos.width + pos.x - startPos.x;
-                }
 
-                if (opt.resizeHeightFrom === 'top') {
+                if (opt.resizeHeightFrom === 'top')
                     newHeight = startPos.height - pos.y + startPos.y;
-                } else {
+                else
                     newHeight = startPos.height + pos.y - startPos.y;
-                }
 
+                if (!opt.onDrag || opt.onDrag(e, $el, newWidth, newHeight, opt) !== false) {
+                    if (opt.resizeHeight)
+                        $el.height(newHeight);                    
 
-                if (typeof opt.onDrag !== "function" || opt.onDrag(e, $el, newWidth, newHeight, opt)) {
-                    if (opt.resizeHeight) {
-                        $el.height(newHeight);
-                    }
-
-                    if (opt.resizeWidth) {
-                        $el.width(newWidth);
-                    }
+                    if (opt.resizeWidth)
+                        $el.width(newWidth);                    
                 }
             }
 
