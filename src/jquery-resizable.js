@@ -86,30 +86,30 @@ Licensed under MIT License
             }
 
             function doDrag(e) {
-                var pos = getMousePos(e);
+                var pos = getMousePos(e), newWidth, newHeight;
 
-                if (opt.resizeWidth) {
-                    if (opt.resizeWidthFrom === 'left') {
-                        var newWidth = startPos.width - pos.x + startPos.x;
-                    } else {
-                        var newWidth = startPos.width + pos.x - startPos.x;
-                    }
-                    $el.width(newWidth);
+                if (opt.resizeWidthFrom === 'left') {
+                    newWidth = startPos.width - pos.x + startPos.x;
+                } else {
+                    newWidth = startPos.width + pos.x - startPos.x;
                 }
 
-                if (opt.resizeHeight) {
-                    if (opt.resizeHeightFrom === 'top') {
-                        var newHeight = startPos.height - pos.y + startPos.y;
-                    } else {
-                        var newHeight = startPos.height + pos.y - startPos.y;
-                    }
-                    $el.height(newHeight);
+                if (opt.resizeHeightFrom === 'top') {
+                    newHeight = startPos.height - pos.y + startPos.y;
+                } else {
+                    newHeight = startPos.height + pos.y - startPos.y;
                 }
 
-                if (opt.onDrag)
-                    opt.onDrag(e, $el, opt);
 
-                //console.log('dragging', e, pos, newWidth, newHeight);
+                if (typeof opt.onDrag !== "function" || opt.onDrag(e, $el, newWidth, newHeight, opt) !== false) {
+                    if (opt.resizeHeight) {
+                        $el.height(newHeight);
+                    }
+
+                    if (opt.resizeWidth) {
+                        $el.width(newWidth);
+                    }
+                }
             }
 
             function stopDragging(e) {
