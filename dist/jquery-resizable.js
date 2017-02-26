@@ -6,7 +6,19 @@ Version 0.17 - 3/31/2016
 www.west-wind.com
 Licensed under MIT License
 */
-(function($, undefined) {
+(function(factory, undefined) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], factory);
+	} else if (typeof module === 'object' && typeof module.exports === 'object') {
+		// CommonJS
+		module.exports = factory(require('jquery'));
+	} else {
+		// Global jQuery
+		factory(jQuery);
+	}
+}(function($, undefined) {
+	
     function getHandle(selector, $el) {
         if (selector.trim()[0] === ">") {
             selector = selector.trim().replace(/^>\s*/, "");
@@ -144,4 +156,4 @@ Licensed under MIT License
             }
         });
     };
-})(jQuery,undefined);
+}));
