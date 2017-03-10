@@ -16,6 +16,6 @@
   ],
   "homepage": "https://github.com/RickStrahl/jquery-resizable",
   "dependencies": {
-    "jquery": "~2.1.4"
+    "jquery": "^2.1.4"
   }
 }
