@@ -8,7 +8,7 @@ Licensed under MIT License
 */
 (function($, undefined) {
     function getHandle(selector, $el) {
-        if (selector.trim()[0] === ">") {
+        if (selector && selector.trim()[0] === ">") {
             selector = selector.trim().replace(/^>\s*/, "");
 
             return $el.find(selector);
