@@ -29,9 +29,14 @@ npm install jquery-resizable-dom
 ```
 
 ### Usage
+
+**Global Scope:**
 ```javascript
 $(selector).resizable(options);
 ```
+
+> ### Module Loading
+> jquery-resizable supports **commonJs** and **AMD** module loading the jQuery dependency. Since this is a plug-in there are no exports but resizable is just an extension method on the `jQuery.fn` extension object.
 
 To use this plug-in add a script reference to jQuery and the resizable plug-in. Then use a jQuery selector to select the element to resize and provide an additional `.handleSelector` to select the sizing handle which initiates the resize operation.
 
@@ -198,8 +203,8 @@ IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIB
 ## Change Log
 #### Version 0.20
 
-* **Module loader support**  
-You can now load jquery-sizable using commonJs, systemJs or loading into global namespace as previously.
+* **Module Loader Support for jQuery**  
+jquery-sizable can now use commonJs and AMD to load the jQuery dependency. Thanks Thiago Delgado Pinto for adding.
 
 #### Version 0.18
 * **onDrag Behavior Updated to support opting out of move operation**  
