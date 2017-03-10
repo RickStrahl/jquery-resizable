@@ -63,6 +63,11 @@ Licensed under MIT License
             };
 
             function startDragging(e) {
+                // Prevent dragging a ghost image in HTML5 / Firefox and maybe others    
+                if ( e.preventDefault ) {
+                  e.preventDefault();
+                }
+                
                 startPos = getMousePos(e);
                 startPos.width = parseInt($el.width(), 10);
                 startPos.height = parseInt($el.height(), 10);
