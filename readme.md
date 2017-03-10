@@ -196,6 +196,11 @@ All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardl
 IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 ## Change Log
+#### Version 0.20
+
+* **Module loader support**  
+You can now load jquery-sizable using commonJs, systemJs or loading into global namespace as previously.
+
 #### Version 0.18
 * **onDrag Behavior Updated to support opting out of move operation**  
 Added additional logic to onDrag processing so that when `false` is returned the auto-resizing of the container is not applied. This allows you to take over the width calculation yourself for things like limiting resize size. <small>(changes by ohcibi)</small>
