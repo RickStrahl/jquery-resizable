@@ -7,7 +7,18 @@ Version 0.17 - 1/4/2015
 www.west-wind.com
 Licensed under MIT License
 */
-(function($, undefined) {
+(function(factory, undefined) {
+	if (typeof define === 'function' && define.amd) {
+		// AMD
+		define(['jquery'], factory);
+	} else if (typeof module === 'object' && typeof module.exports === 'object') {
+		// CommonJS
+		module.exports = factory(require('jquery'));
+	} else {
+		// Global jQuery
+		factory(jQuery);
+	}
+}(function($, undefined) {
     $.fn.resizableTableColumns = function(opt) {
         opt = $.extend({
             resizeHeight: false,
@@ -21,4 +32,4 @@ Licensed under MIT License
                 .resizable(opt);
         });
     };
-})(jQuery, undefined);
+}));
