@@ -152,6 +152,17 @@ Hook event fired when the drag operation completes and the mouse is released. Re
 Sets touch-action: none on the handle element to prevent browser interference to initiating touch drag operations especially on Internet Explorer, Edge and Windows 10 browsers.
 
 
+### Commands
+
+**destroy**
+
+Should the need arise, you can remove a `resizable` instance with:
+
+```javascript
+  $el.resizable('destroy');
+```
+
+
 ## jquery-resizableTableColumns Plugin
 
 ### Usage

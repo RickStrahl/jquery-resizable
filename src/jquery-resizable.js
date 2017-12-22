@@ -63,6 +63,14 @@ Licensed under MIT License
 
             var $handle = getHandle(opt.handleSelector, $el);
 
+            if (options === 'destroy') {
+                $el.removeClass("resizable");
+                $handle.unbind('mousedown.rsz touchstart.rsz', startDragging);
+                if (opt.touchActionNone)
+                    $handle.css("touch-action", "");
+                return;
+            }
+
             if (opt.touchActionNone)
                 $handle.css("touch-action", "none");
 
