@@ -18,32 +18,34 @@ Licensed under MIT License
 		factory(jQuery);
 	}
 }(function($, undefined) {
-	
+
     function getHandle(selector, $el) {
         if (selector && selector.trim()[0] === ">") {
             selector = selector.trim().replace(/^>\s*/, "");
-
             return $el.find(selector);
         }
 
-        return selector ? $(selector) : $el;
-    }
+        // Search for the selector, but only in the parent element to limit the scope
+        // This works for multiple objects on a page (using .class syntax most likely)
+        // as long as each has a separate parent container. 
+        return selector ? $el.parent().find(selector) : $el;
+    } 
 
     if ($.fn.resizable)
         return;
 
     $.fn.resizable = function fnResizable(options) {
-        var opt = {
+        var defaultOptions = {
             // selector for handle that starts dragging
             handleSelector: null,
             // resize the width
             resizeWidth: true,
             // resize the height
-            resizeHeight: true,            
+            resizeHeight: true,
             // the side that the width resizing is relative to
             resizeWidthFrom: 'right',
             // the side that the height resizing is relative to
-            resizeHeightFrom: 'bottom',            
+            resizeHeightFrom: 'bottom',
             // hook into start drag operation (event passed)
             onDragStart: null,
             // hook into stop drag operation (event passed)
@@ -52,22 +54,31 @@ Licensed under MIT License
             onDrag: null,
             // disable touch-action on $handle
             // prevents browser level actions like forward back gestures
-            touchActionNone: true
-        };
-        if (typeof options == "object") opt = $.extend(opt, options);
+            touchActionNone: true,
+            // instance id
+            instanceId: null
+    };
+        if (typeof options == "object")
+            defaultOptions = $.extend(defaultOptions, options);
 
         return this.each(function () {
+            var opt = $.extend({}, defaultOptions);
+            if (!opt.instanceId)
+                opt.instanceId = "rsz_" + new Date().getTime();
+
             var startPos, startTransition;
 
+            // get the element to resize 
             var $el = $(this);
 
+            // get the drag handle
             var $handle = getHandle(opt.handleSelector, $el);
 
             if (opt.touchActionNone)
                 $handle.css("touch-action", "none");
 
             $el.addClass("resizable");
-            $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
+            $handle.bind('mousedown.' + opt.instanceId + ' touchstart.' + opt.instanceId, startDragging);
 
             function noop(e) {
                 e.stopPropagation();
@@ -91,18 +102,18 @@ Licensed under MIT License
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
                 }
-                opt.dragFunc = doDrag;
-
-                $(document).bind('mousemove.rsz', opt.dragFunc);
-                $(document).bind('mouseup.rsz', stopDragging);
+                
+                $(document).bind('mousemove.' + opt.instanceId, doDrag);
+                $(document).bind('mouseup.' + opt.instanceId, stopDragging);
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).bind('touchmove.rsz', opt.dragFunc);
-                    $(document).bind('touchend.rsz', stopDragging);
+                    $(document).bind('touchmove.' + opt.instanceId, doDrag);
+                    $(document).bind('touchend.' + opt.instanceId, stopDragging);
                 }
-                $(document).bind('selectstart.rsz', noop); // disable selection
+                $(document).bind('selectstart.' + opt.instanceId, noop); // disable selection
             }
 
             function doDrag(e) {
+                
                 var pos = getMousePos(e), newWidth, newHeight;
 
                 if (opt.resizeWidthFrom === 'left')
@@ -128,14 +139,14 @@ Licensed under MIT License
                 e.stopPropagation();
                 e.preventDefault();
 
-                $(document).unbind('mousemove.rsz', opt.dragFunc);
-                $(document).unbind('mouseup.rsz', stopDragging);
+                $(document).unbind('mousemove.' + opt.instanceId, doDrag);
+                $(document).unbind('mouseup.' + opt.instanceId, stopDragging);
 
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).unbind('touchmove.rsz', opt.dragFunc);
-                    $(document).unbind('touchend.rsz', stopDragging);
+                    $(document).unbind('touchmove.' + opt.instanceId, doDrag);
+                    $(document).unbind('touchend.' + opt.instanceId, stopDragging);
                 }
-                $(document).unbind('selectstart.rsz', noop);
+                $(document).unbind('selectstart.' + opt.instanceId, noop);                
 
                 // reset changed values
                 $el.css("transition", startTransition);

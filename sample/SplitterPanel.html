@@ -21,7 +21,7 @@
             border: 1px solid silver;         
             overflow: hidden;                   
         }
-        .panel-left {
+        .panel-left,.panel2-left {
             flex: 0 0 auto;  /* only manually resize */
             padding: 10px;
             width: 300px;
@@ -32,14 +32,14 @@
             background: #838383;
             color: white;
         }
-        .splitter {
+        .splitter, .splitter2 {
             flex: 0 0 auto;
             width: 18px;
             background: url(../assets/vsizegrip.png) center center no-repeat #535353;
             min-height: 200px;
             cursor: col-resize;
         }
-        .panel-right {
+        .panel-right, .panel2-right {
             flex: 1 1 auto; /* resizable */
             padding: 10px;
             width: 100%;
@@ -123,6 +123,34 @@
         </div>
     </div>
 
+    
+    <div class="panel-container" style="margin-top: 50px;">
+
+        <div class="panel-left">
+            left panel (same ids)
+        </div>
+
+        <div class="splitter">
+        </div>
+
+        <div class="panel-right">
+            right panel (same ids)
+        </div>
+    </div>
+    
+    <div class="panel-container" style="margin-top: 50px;">
+        <div class="panel2-left">
+            left panel 2
+        </div>
+
+        <div class="splitter2">
+        </div>
+
+        <div class="panel2-right">
+            right panel 2
+        </div>
+    </div>
+
     <label>Vertical Splitter Panes:</label>
     <div class="panel-container-vertical">
 
@@ -163,10 +191,18 @@
 
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../src/jquery-resizable.js"></script>
+<script src="../src/jquery-resizable.js"></script>
 <script>
     $(".panel-left").resizable({
         handleSelector: ".splitter",
+        resizeHeight: false
+    });
+
+
+
+
+    $(".panel2-left").resizable({
+        handleSelector: ".splitter2",
         resizeHeight: false
     });
 
