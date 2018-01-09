@@ -1,6 +1,6 @@
 {
   "name": "jquery-resizable-dom",
-  "version": "0.20.0",
+  "version": "0.25.0",
   "description": "A small jquery component to make components resizable",
   "main": "./dist/jquery-resizable.min.js",
   "devDependencies": {
@@ -9,15 +9,15 @@
     "gulp-filter": "^4.0.0",
     "gulp-livereload": "^3.8.1",
     "gulp-rename": "^1.2.2",
-    "gulp-rimraf": "^0.2.0",
+    "gulp-rimraf": "^0.2.2",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.5.1"
   },
   "files": [
-  	"readme.md",
-  	"dist/",
-  	"src/",
-  	"assets/"
+    "readme.md",
+    "dist/",
+    "src/",
+    "assets/"
   ],
   "dependencies": {},
   "scripts": {

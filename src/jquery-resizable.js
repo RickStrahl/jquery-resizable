@@ -1,7 +1,7 @@
-/// <reference path="jquery.js" />
+/// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.20 - 3/10/2017
+Version 0.25 - 1/10/2018
 © 2015-2017 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
@@ -18,32 +18,34 @@ Licensed under MIT License
 		factory(jQuery);
 	}
 }(function($, undefined) {
-	
+
     function getHandle(selector, $el) {
         if (selector && selector.trim()[0] === ">") {
             selector = selector.trim().replace(/^>\s*/, "");
-
             return $el.find(selector);
         }
 
-        return selector ? $(selector) : $el;
-    }
+        // Search for the selector, but only in the parent element to limit the scope
+        // This works for multiple objects on a page (using .class syntax most likely)
+        // as long as each has a separate parent container. 
+        return selector ? $el.parent().find(selector) : $el;
+    } 
 
     if ($.fn.resizable)
         return;
 
     $.fn.resizable = function fnResizable(options) {
-        var opt = {
+        var defaultOptions = {
             // selector for handle that starts dragging
             handleSelector: null,
             // resize the width
             resizeWidth: true,
             // resize the height
-            resizeHeight: true,            
+            resizeHeight: true,
             // the side that the width resizing is relative to
             resizeWidthFrom: 'right',
             // the side that the height resizing is relative to
-            resizeHeightFrom: 'bottom',            
+            resizeHeightFrom: 'bottom',
             // hook into start drag operation (event passed)
             onDragStart: null,
             // hook into stop drag operation (event passed)
@@ -52,18 +54,33 @@ Licensed under MIT License
             onDrag: null,
             // disable touch-action on $handle
             // prevents browser level actions like forward back gestures
-            touchActionNone: true
-        };
-        if (typeof options == "object") opt = $.extend(opt, options);
+            touchActionNone: true,
+            // instance id
+            instanceId: null
+    };
+        if (typeof options == "object")
+            defaultOptions = $.extend(defaultOptions, options);
 
         return this.each(function () {
+            var opt = $.extend({}, defaultOptions);
+            if (!opt.instanceId)
+                opt.instanceId = "rsz_" + new Date().getTime();
+
+            console.log('set: ' + opt.instanceId);
+
             var startPos, startTransition;
 
+            // get the element to resize 
             var $el = $(this);
+            var $handle;
 
-            if (options === 'destroy') {
-                var $handle = getHandle($el.data('resizable').handleSelector, $el);
-                $handle.unbind('mousedown.rsz touchstart.rsz');
+            if (options === 'destroy') {            
+                opt = $el.data('resizable');
+                if (!opt)
+                    return;
+                console.log("unset: " + opt.instanceId);
+                $handle = getHandle(opt.handleSelector, $el);
+                $handle.off("mousedown." + opt.instanceId + " touchstart." + opt.instanceId);
                 if (opt.touchActionNone)
                     $handle.css("touch-action", "");
                 $el.removeClass("resizable");
@@ -72,13 +89,15 @@ Licensed under MIT License
           
             $el.data('resizable', opt);
 
-            var $handle = getHandle(opt.handleSelector, $el);
+            // get the drag handle
+
+            $handle = getHandle(opt.handleSelector, $el);
 
             if (opt.touchActionNone)
                 $handle.css("touch-action", "none");
 
             $el.addClass("resizable");
-            $handle.bind('mousedown.rsz touchstart.rsz', startDragging);
+            $handle.on("mousedown." + opt.instanceId + " touchstart." + opt.instanceId, startDragging);
 
             function noop(e) {
                 e.stopPropagation();
@@ -102,18 +121,18 @@ Licensed under MIT License
                     if (opt.onDragStart(e, $el, opt) === false)
                         return;
                 }
-                opt.dragFunc = doDrag;
-
-                $(document).bind('mousemove.rsz', opt.dragFunc);
-                $(document).bind('mouseup.rsz', stopDragging);
+                
+                $(document).on('mousemove.' + opt.instanceId, doDrag);
+                $(document).on('mouseup.' + opt.instanceId, stopDragging);
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).bind('touchmove.rsz', opt.dragFunc);
-                    $(document).bind('touchend.rsz', stopDragging);
+                    $(document).on('touchmove.' + opt.instanceId, doDrag);
+                    $(document).on('touchend.' + opt.instanceId, stopDragging);
                 }
-                $(document).bind('selectstart.rsz', noop); // disable selection
+                $(document).on('selectstart.' + opt.instanceId, noop); // disable selection
             }
 
             function doDrag(e) {
+                
                 var pos = getMousePos(e), newWidth, newHeight;
 
                 if (opt.resizeWidthFrom === 'left')
@@ -139,14 +158,14 @@ Licensed under MIT License
                 e.stopPropagation();
                 e.preventDefault();
 
-                $(document).unbind('mousemove.rsz', opt.dragFunc);
-                $(document).unbind('mouseup.rsz', stopDragging);
+                $(document).off('mousemove.' + opt.instanceId);
+                $(document).off('mouseup.' + opt.instanceId);
 
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).unbind('touchmove.rsz', opt.dragFunc);
-                    $(document).unbind('touchend.rsz', stopDragging);
+                    $(document).off('touchmove.' + opt.instanceId);
+                    $(document).off('touchend.' + opt.instanceId);
                 }
-                $(document).unbind('selectstart.rsz', noop);
+                $(document).off('selectstart.' + opt.instanceId, noop);                
 
                 // reset changed values
                 $el.css("transition", startTransition);

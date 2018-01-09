@@ -21,7 +21,7 @@
             border: 1px solid silver;         
             overflow: hidden;                   
         }
-        .panel-left {
+        .panel-left,.panel2-left {
             flex: 0 0 auto;  /* only manually resize */
             padding: 10px;
             width: 300px;
@@ -32,14 +32,14 @@
             background: #838383;
             color: white;
         }
-        .splitter {
+        .splitter, .splitter2 {
             flex: 0 0 auto;
             width: 18px;
             background: url(../assets/vsizegrip.png) center center no-repeat #535353;
             min-height: 200px;
             cursor: col-resize;
         }
-        .panel-right {
+        .panel-right, .panel2-right {
             flex: 1 1 auto; /* resizable */
             padding: 10px;
             width: 100%;
@@ -95,57 +95,88 @@
     </style>
 </head>
 <body style="">
-<div class="page-container">
+    <div class="page-container">
 
-    <h1>
-        jquery-resizable - A simple splitter panel
-    </h1>
-    <hr/>
+        <h1>
+            jquery-resizable - A simple splitter panel
+        </h1>
+        <hr />
 
-    <p>
-        Simple example that demonstrates how to create slidable two-pane layouts using FlexBox and the resizable plug-in.
-        Note that Flexbox is not required, but used here to keep the layout simple.
-    </p>
+        <p>
+            Simple example that demonstrates how to create slidable two-pane layouts using FlexBox and the resizable plug-in.
+            Note that Flexbox is not required, but used here to keep the layout simple.
+        </p>
 
-    <label>Horizontal Splitter Panes:</label>
+        <label>Horizontal Splitter Panes:</label>
 
-    <div class="panel-container">
+        <div class="panel-container">
 
-        <div class="panel-left">
-            left panel
+            <div class="panel-left">
+                left panel
+            </div>
+
+            <div class="splitter">
+            </div>
+
+            <div class="panel-right">
+                right panel
+            </div>
+        </div>
+        <button id="btnUnbind">Unbind Resizers</button>
+
+        <div class="panel-container" style="margin-top: 50px;">
+
+            <div class="panel-left">
+                left panel (same ids)
+            </div>
+
+            <div class="splitter">
+            </div>
+
+            <div class="panel-right">
+                right panel (same ids)
+            </div>
         </div>
 
-        <div class="splitter">
+        <div class="panel-container" style="margin-top: 50px;">
+            <div class="panel2-left">
+                left panel 2
+            </div>
+
+            <div class="splitter2">
+            </div>
+
+            <div class="panel2-right">
+                right panel 2
+            </div>
         </div>
 
-        <div class="panel-right">
-            right panel
+        <label>Vertical Splitter Panes:</label>
+        <div class="panel-container-vertical">
+
+            <div class="panel-top">
+                top panel
+            </div>
+
+            <div class="splitter-horizontal">
+            </div>
+
+            <div class="panel-bottom">
+                bottom panel
+            </div>
         </div>
-    </div>
-
-    <label>Vertical Splitter Panes:</label>
-    <div class="panel-container-vertical">
-
-        <div class="panel-top">
-            top panel
-        </div>
-
-        <div class="splitter-horizontal">
-        </div>
-
-        <div class="panel-bottom">
-            bottom panel
-        </div>
-    </div>
 
 
 
-    <hr/>
+        <hr />
 
-    <p>
-        This example creates two resizables for the horizontal and vertical splitter panes:
-    </p>
-    <pre>
+        <p>
+            This example creates two resizables for the horizontal and vertical splitter panes:
+        </p>
+
+
+
+        <pre>
 &lt;script src=&quot;//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;../src/jquery-resizable.js&quot;&gt;&lt;/script&gt;
 &lt;script&gt;
@@ -159,14 +190,19 @@
     });
 &lt;/script&gt;
 </pre>
-</div>
+    </div>
 
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../src/jquery-resizable.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../src/jquery-resizable.js"></script>
 <script>
     $(".panel-left").resizable({
         handleSelector: ".splitter",
+        resizeHeight: false
+    });
+
+    $(".panel2-left").resizable({
+        handleSelector: ".splitter2",
         resizeHeight: false
     });
 
@@ -174,6 +210,11 @@
         handleSelector: ".splitter-horizontal",
         resizeWidth: false
     });
+
+    $("#btnUnbind").on("click",
+        function () {            
+            $(".panel-left").resizable("destroy");
+        });
 </script>
 
 
