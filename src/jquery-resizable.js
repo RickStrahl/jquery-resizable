@@ -1,7 +1,7 @@
-/// <reference path="jquery.js" />
+/// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.20 - 3/10/2017
+Version 0.25 - 1/10/2018
 © 2015-2017 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
