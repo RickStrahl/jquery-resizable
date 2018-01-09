@@ -1,7 +1,7 @@
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.25 - 1/10/2018
+Version 0.26 - 1/10/2018
 © 2015-2017 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
@@ -66,19 +66,38 @@ Licensed under MIT License
             if (!opt.instanceId)
                 opt.instanceId = "rsz_" + new Date().getTime();
 
+            console.log('set: ' + opt.instanceId);
+
             var startPos, startTransition;
 
             // get the element to resize 
             var $el = $(this);
+            var $handle;
+
+            if (options === 'destroy') {            
+                opt = $el.data('resizable');
+                if (!opt)
+                    return;
+                console.log("unset: " + opt.instanceId);
+                $handle = getHandle(opt.handleSelector, $el);
+                $handle.off("mousedown." + opt.instanceId + " touchstart." + opt.instanceId);
+                if (opt.touchActionNone)
+                    $handle.css("touch-action", "");
+                $el.removeClass("resizable");
+                return;
+            }
+          
+            $el.data('resizable', opt);
 
             // get the drag handle
-            var $handle = getHandle(opt.handleSelector, $el);
+
+            $handle = getHandle(opt.handleSelector, $el);
 
             if (opt.touchActionNone)
                 $handle.css("touch-action", "none");
 
             $el.addClass("resizable");
-            $handle.on('mousedown.' + opt.instanceId + ' touchstart.' + opt.instanceId, startDragging);
+            $handle.on("mousedown." + opt.instanceId + " touchstart." + opt.instanceId, startDragging);
 
             function noop(e) {
                 e.stopPropagation();
@@ -139,12 +158,12 @@ Licensed under MIT License
                 e.stopPropagation();
                 e.preventDefault();
 
-                $(document).off('mousemove.' + opt.instanceId, doDrag);
-                $(document).off('mouseup.' + opt.instanceId, stopDragging);
+                $(document).off('mousemove.' + opt.instanceId);
+                $(document).off('mouseup.' + opt.instanceId);
 
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).off('touchmove.' + opt.instanceId, doDrag);
-                    $(document).off('touchend.' + opt.instanceId, stopDragging);
+                    $(document).off('touchmove.' + opt.instanceId);
+                    $(document).off('touchend.' + opt.instanceId);
                 }
                 $(document).off('selectstart.' + opt.instanceId, noop);                
 
