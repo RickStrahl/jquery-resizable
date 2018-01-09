@@ -18,19 +18,7 @@ Licensed under MIT License
 		factory(jQuery);
 	}
 }(function($, undefined) {
-
-    function getHandle(selector, $el) {
-        if (selector && selector.trim()[0] === ">") {
-            selector = selector.trim().replace(/^>\s*/, "");
-            return $el.find(selector);
-        }
-
-        // Search for the selector, but only in the parent element to limit the scope
-        // This works for multiple objects on a page (using .class syntax most likely)
-        // as long as each has a separate parent container. 
-        return selector ? $el.parent().find(selector) : $el;
-    } 
-
+    
     if ($.fn.resizable)
         return;
 
@@ -189,6 +177,18 @@ Licensed under MIT License
 
                 return pos;
             }
+
+            function getHandle(selector, $el) {
+                if (selector && selector.trim()[0] === ">") {
+                    selector = selector.trim().replace(/^>\s*/, "");
+                    return $el.find(selector);
+                }
+
+                // Search for the selector, but only in the parent element to limit the scope
+                // This works for multiple objects on a page (using .class syntax most likely)
+                // as long as each has a separate parent container. 
+                return selector ? $el.parent().find(selector) : $el;
+            } 
         });
     };
 }));
