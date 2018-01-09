@@ -86,21 +86,23 @@ If no selector is passed the element itself becomes resizable. Usually this resu
 If the selector is prepended by a `>` the element is searched inside the resized component.
 
 ```html
+<!-- first instance -->
 <div class="box">
   <div class="handle">
   </div>
 </div>
 
+<!-- second instance -->
 <div class="box">
   <div class="handle">
   </div>
 </div>
-```
 
-```javascript
+<script>
 $(".box").resizable({
   handleSelector: "> .handle"
 });
+</script>
 ```
 
 **resizeWidth, resizeHeight**  

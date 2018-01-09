@@ -18,10 +18,10 @@
         .box {
             margin: 40px;
             box-shadow: 5px 5px 10px #535353;
-            border: 1px silver;
+            border: 1px solid #ddd;
             border-radius: 4px;
             position: relative;
-            width: 500px;
+            width: 600px;
             height: 400px;
             overflow: hidden;
             /* limit size with min/max-width/height*/
@@ -70,14 +70,23 @@
         </h1>
         <hr />
         <p>
-            This simple example simply resizes a single box using a sizing grip at the bottom of the window.
+            This simple example simply resizes a couple of boxes using a sizing grip at the bottom of the window.
             Note that .resizable() does not handle of the UI aspects - it only manages the actual resizing
             operation itself. You're responsible for creating placing the sizing handle where it makes sense
             for your UI.
         </p>
 
         <div class="box">
-            <div class="boxheader">Header</div>
+            <div class="boxheader">Box 1</div>
+            <div class="boxbody">
+                Resize me
+            </div>
+            <div class="win-size-grip"></div>
+        </div>
+        
+        
+        <div class="box">
+            <div class="boxheader">Box 2</div>
             <div class="boxbody">
                 Resize me
             </div>
@@ -89,22 +98,15 @@
             To apply resizing use the .resizable plugin and specify the resizable container
             and a sizing handle that initiates resizing:
         </p>
-        <pre> $(".box").resizable({ handleSelector: ".win-size-grip"});</pre>
-
-        <p>
-            Note that you can also use the initial container for resizing by reapplying the initial
-            selector but usually provides
-
-        </p>
-
+        <pre> $(".box").resizable({ handleSelector: ".win-size-grip"});</pre>      
+        <p></p>
     </div>
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>    
 <script src="../src/jquery-resizable.js"></script>
-<script>
-    $(".box").resizable({ handleSelector: "> .win-size-grip" });
-
+<script>    
     $(".box").resizable({
+        handleSelector: "> .win-size-grip",
         onDragStart: function (e, $el, opt) {
             $el.css("cursor", "nwse-resize");
         },
