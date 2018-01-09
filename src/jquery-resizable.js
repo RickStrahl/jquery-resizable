@@ -78,7 +78,7 @@ Licensed under MIT License
                 $handle.css("touch-action", "none");
 
             $el.addClass("resizable");
-            $handle.bind('mousedown.' + opt.instanceId + ' touchstart.' + opt.instanceId, startDragging);
+            $handle.on('mousedown.' + opt.instanceId + ' touchstart.' + opt.instanceId, startDragging);
 
             function noop(e) {
                 e.stopPropagation();
@@ -103,13 +103,13 @@ Licensed under MIT License
                         return;
                 }
                 
-                $(document).bind('mousemove.' + opt.instanceId, doDrag);
-                $(document).bind('mouseup.' + opt.instanceId, stopDragging);
+                $(document).on('mousemove.' + opt.instanceId, doDrag);
+                $(document).on('mouseup.' + opt.instanceId, stopDragging);
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).bind('touchmove.' + opt.instanceId, doDrag);
-                    $(document).bind('touchend.' + opt.instanceId, stopDragging);
+                    $(document).on('touchmove.' + opt.instanceId, doDrag);
+                    $(document).on('touchend.' + opt.instanceId, stopDragging);
                 }
-                $(document).bind('selectstart.' + opt.instanceId, noop); // disable selection
+                $(document).on('selectstart.' + opt.instanceId, noop); // disable selection
             }
 
             function doDrag(e) {
@@ -139,14 +139,14 @@ Licensed under MIT License
                 e.stopPropagation();
                 e.preventDefault();
 
-                $(document).unbind('mousemove.' + opt.instanceId, doDrag);
-                $(document).unbind('mouseup.' + opt.instanceId, stopDragging);
+                $(document).off('mousemove.' + opt.instanceId, doDrag);
+                $(document).off('mouseup.' + opt.instanceId, stopDragging);
 
                 if (window.Touch || navigator.maxTouchPoints) {
-                    $(document).unbind('touchmove.' + opt.instanceId, doDrag);
-                    $(document).unbind('touchend.' + opt.instanceId, stopDragging);
+                    $(document).off('touchmove.' + opt.instanceId, doDrag);
+                    $(document).off('touchend.' + opt.instanceId, stopDragging);
                 }
-                $(document).unbind('selectstart.' + opt.instanceId, noop);                
+                $(document).off('selectstart.' + opt.instanceId, noop);                
 
                 // reset changed values
                 $el.css("transition", startTransition);
