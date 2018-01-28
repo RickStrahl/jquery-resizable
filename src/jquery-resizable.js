@@ -1,7 +1,7 @@
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.26 - 1/10/2018
+Version 0.27 - 1/10/2018
 © 2015-2017 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
@@ -52,9 +52,7 @@ Licensed under MIT License
         return this.each(function () {
             var opt = $.extend({}, defaultOptions);
             if (!opt.instanceId)
-                opt.instanceId = "rsz_" + new Date().getTime();
-
-            console.log('set: ' + opt.instanceId);
+                opt.instanceId = "rsz_" + new Date().getTime();            
 
             var startPos, startTransition;
 
@@ -66,7 +64,7 @@ Licensed under MIT License
                 opt = $el.data('resizable');
                 if (!opt)
                     return;
-                console.log("unset: " + opt.instanceId);
+
                 $handle = getHandle(opt.handleSelector, $el);
                 $handle.off("mousedown." + opt.instanceId + " touchstart." + opt.instanceId);
                 if (opt.touchActionNone)

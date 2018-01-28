@@ -1,7 +1,7 @@
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.26 - 1/10/2018
+Version 0.27 - 1/10/2018
 © 2015-2017 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
@@ -18,19 +18,7 @@ Licensed under MIT License
 		factory(jQuery);
 	}
 }(function($, undefined) {
-
-    function getHandle(selector, $el) {
-        if (selector && selector.trim()[0] === ">") {
-            selector = selector.trim().replace(/^>\s*/, "");
-            return $el.find(selector);
-        }
-
-        // Search for the selector, but only in the parent element to limit the scope
-        // This works for multiple objects on a page (using .class syntax most likely)
-        // as long as each has a separate parent container. 
-        return selector ? $el.parent().find(selector) : $el;
-    } 
-
+    
     if ($.fn.resizable)
         return;
 
@@ -64,9 +52,7 @@ Licensed under MIT License
         return this.each(function () {
             var opt = $.extend({}, defaultOptions);
             if (!opt.instanceId)
-                opt.instanceId = "rsz_" + new Date().getTime();
-
-            console.log('set: ' + opt.instanceId);
+                opt.instanceId = "rsz_" + new Date().getTime();            
 
             var startPos, startTransition;
 
@@ -78,7 +64,7 @@ Licensed under MIT License
                 opt = $el.data('resizable');
                 if (!opt)
                     return;
-                console.log("unset: " + opt.instanceId);
+
                 $handle = getHandle(opt.handleSelector, $el);
                 $handle.off("mousedown." + opt.instanceId + " touchstart." + opt.instanceId);
                 if (opt.touchActionNone)
@@ -189,6 +175,18 @@ Licensed under MIT License
 
                 return pos;
             }
+
+            function getHandle(selector, $el) {
+                if (selector && selector.trim()[0] === ">") {
+                    selector = selector.trim().replace(/^>\s*/, "");
+                    return $el.find(selector);
+                }
+
+                // Search for the selector, but only in the parent element to limit the scope
+                // This works for multiple objects on a page (using .class syntax most likely)
+                // as long as each has a separate parent container. 
+                return selector ? $el.parent().find(selector) : $el;
+            } 
         });
     };
 }));
