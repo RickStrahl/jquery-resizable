@@ -215,6 +215,17 @@ All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardl
 IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 ## Change Log
+
+#### Version 0.25
+* **Destroy Option to release resizables**   
+Added support removing resizables using `$(el).resizable('destroy')`.
+
+* **Fix Touch Sizing Code**  
+Fix up end drag detection both for mouse and touch dragging operations for more reliable end-drag detection. Fixes issue where the drag cursor previously would loose connection to the drag handle and continue to drag after releasing.
+
+* **Support for jQuery 3.x**  
+Fixed a few issues related to running under jQuery 3.x. Switched to `.on()` and `.off()` handlers for all event handlers.
+
 #### Version 0.20
 
 * **Module Loader Support for jQuery**  
