@@ -1,7 +1,7 @@
 # jquery-resizable 
 #### A small jQuery plug-in to make HTML DOM elements resizable 
 
-This small jQuery plug-in allows you to make DOM elements resizable using a sizing handle. It works with Mouse and Touch events so you can resize elements on mobile devices. 
+This small, self-contained jQuery plug-in allows you to make DOM elements resizable using a sizing handle. It works with Mouse and Touch events so you can resize elements on mobile devices. 
 
 Resizables are useful if you want to add resizing features to your HTML layouts for things like like resizable dialogs, splitter panes or elements that can be resized by a user in a layout.
 
@@ -41,8 +41,9 @@ $(selector).resizable(options);
 To use this plug-in add a script reference to jQuery and the resizable plug-in. Then use a jQuery selector to select the element to resize and provide an additional `.handleSelector` to select the sizing handle which initiates the resize operation.
 
 ```html
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="scripts/jquery-resizable.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="../src/jquery-resizable.js"></script>
+<script src="../src/jquery-resizableTableColumns.js"></script>
 <script>
 $("#box").resizable({ 
     handleSelector: ".splitter",
