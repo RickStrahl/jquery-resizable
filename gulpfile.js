@@ -19,7 +19,7 @@ gulp.task('scripts:minify', function () {
 });
 
 gulp.task('scripts:copy', function () {
-    gulp.src(['src/*.js'])
+    gulp.src(['src/*.js','src/*.ts'])
         .pipe(gulp.dest('./dist'));
 });
 
