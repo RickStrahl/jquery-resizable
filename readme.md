@@ -216,11 +216,13 @@ IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIB
 
 ## Change Log
 
-#### Version 0.27
+#### Version 0.28
 
 * **Small Bug Fixes**  
 Remove console.log commands. Clean up code and add additional source comments.
 
+* **Typescript definition added**  
+Added typescript definition.
 
 #### Version 0.25
 * **Destroy Option to release resizables**   

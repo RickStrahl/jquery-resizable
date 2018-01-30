@@ -1,8 +1,8 @@
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.27 - 1/10/2018
-© 2015-2017 Rick Strahl, West Wind Technologies
+Version 0.28 - 1/10/2018
+© 2015-2018 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
 */
