@@ -216,6 +216,11 @@ IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIB
 
 ## Change Log
 
+#### Version 0.32
+
+* **Fix iFrame Drag Jitter**  
+Added logic to remove iFrame pointer events on drag start and restore on drag end which removes issue with extreme drag on any resized panel that contains an iframe.
+
 #### Version 0.28
 
 * **Small Bug Fixes**  
