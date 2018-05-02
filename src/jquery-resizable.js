@@ -1,7 +1,7 @@
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.28 - 1/10/2018
+Version 0.32 - 5/5/2018
 © 2015-2018 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
@@ -115,6 +115,7 @@ Licensed under MIT License
                     $(document).on('touchend.' + opt.instanceId, stopDragging);
                 }
                 $(document).on('selectstart.' + opt.instanceId, noop); // disable selection
+                $("iframe").css("pointer-events","none");
             }
 
             function doDrag(e) {
@@ -155,6 +156,7 @@ Licensed under MIT License
 
                 // reset changed values
                 $el.css("transition", startTransition);
+                $("iframe").css("pointer-events","auto");
 
                 if (opt.onDragEnd)
                     opt.onDragEnd(e, $el, opt);

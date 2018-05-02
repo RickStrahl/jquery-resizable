@@ -31,8 +31,10 @@ gulp.task('clean', function () {
 });
 
 gulp.task('watch', function () {
+    console.log("listening on port: 5000 in Sample folder");
+
     // Create LiveReload server
-    livereload.listen();
+    livereload.listen({port: 5000, basePath: './sample'});
 
     gulp.watch(['./src/*.js'], ['scripts']);
 });
