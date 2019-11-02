@@ -20,7 +20,7 @@
     "assets/"
   ],
   "dependencies": {
-    "jquery": "~3.3.1"
+    "jquery": "~3.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
