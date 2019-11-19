@@ -43,7 +43,7 @@ $(selector).resizable(options);
 To use this plug-in add a script reference to jQuery and the resizable plug-in. Then use a jQuery selector to select the element to resize and provide an additional `.handleSelector` to select the sizing handle which initiates the resize operation.
 
 ```html
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
 <script src="../src/jquery-resizable.js"></script>
 <script src="../src/jquery-resizableTableColumns.js"></script>
 <script>
@@ -196,7 +196,7 @@ To use this plug-in add a script reference to jQuery and the resizable and resiz
         cursor: col-resize;       
     }
 </style>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js" type="text/javascript"></script>
 <script src="../src/jquery-resizable.js"></script>
 <script src="../src/jquery-resizableTableColumns.js"></script>
 <script>
