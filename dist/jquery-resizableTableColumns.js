@@ -2,8 +2,8 @@
 /// <reference path="jquery-resizable.js" />
 /*
 jquery-resizable-table-columns
-Version 0.17 - 1/4/2015
-© 2015-2016 Rick Strahl, West Wind Technologies 
+Version 0.35 - 11/18/2019
+(c) 2015-2019 Rick Strahl, West Wind Technologies 
 www.west-wind.com
 Licensed under MIT License
 */
@@ -29,7 +29,7 @@ Licensed under MIT License
             $(this)
                 .css({ position: "relative" })
                 .prepend("<div class='resizer'></div>")
-                .resizable(opt);
+                .resizableSafe(opt);
         });
     };
 }));

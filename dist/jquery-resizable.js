@@ -1,8 +1,8 @@
 /// <reference path="../bower_components/jquery/dist/jquery.js" />
 /*
 jquery-resizable
-Version 0.32 - 5/5/2018
-© 2015-2018 Rick Strahl, West Wind Technologies
+Version 0.35 - 11/18/2019
+© 2015-2019 Rick Strahl, West Wind Technologies
 www.west-wind.com
 Licensed under MIT License
 */
@@ -19,10 +19,10 @@ Licensed under MIT License
 	}
 }(function($, undefined) {
     
-    if ($.fn.resizable)
+    if ($.fn.resizableSafe)
         return;
 
-    $.fn.resizable = function fnResizable(options) {
+    $.fn.resizableSafe = function fnResizable(options) {
         var defaultOptions = {
             // selector for handle that starts dragging
             handleSelector: null,
@@ -191,4 +191,7 @@ Licensed under MIT License
             } 
         });
     };
+
+    if (!$.fn.resizable)
+        $.fn.resizable = $.fn.resizableSafe;
 }));

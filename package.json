@@ -4,14 +4,7 @@
   "description": "A small jquery component to make components resizable",
   "main": "./dist/jquery-resizable.min.js",
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "gulp-copy": "0.0.2",
-    "gulp-filter": "^4.0.0",
-    "gulp-livereload": "^3.8.1",
-    "gulp-rename": "^1.2.2",
-    "gulp-rimraf": "^0.2.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1"
+    "uglify-js": "^3.6.9"
   },
   "files": [
     "readme.md",
@@ -23,6 +16,7 @@
     "jquery": "^3.4.0"
   },
   "scripts": {
+    "pack": "uglifyjs ./src/jquery-resizable.js -o dist/jquery-resizable.min.js --source-map;uglifyjs ./src/jquery-resizableTableColumns.js -o dist/jquery-resizableTableColumns.min.js.js --source-map",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
