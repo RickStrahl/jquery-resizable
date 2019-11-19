@@ -1,6 +1,6 @@
 {
   "name": "jquery-resizable-dom",
-  "version": "0.32.0",
+  "version": "0.35.0",
   "description": "A small jquery component to make components resizable",
   "main": "./dist/jquery-resizable.min.js",
   "devDependencies": {
@@ -20,7 +20,7 @@
     "assets/"
   ],
   "dependencies": {
-    "jquery": "~3.3.1"
+    "jquery": "^3.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

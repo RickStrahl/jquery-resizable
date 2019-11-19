@@ -15,27 +15,84 @@
         li {
             margin-top: 15px;
         }
+
+        .box {
+            margin: 40px;
+            box-shadow: 5px 5px 10px #535353;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            position: relative;
+            width: 500px;
+            height: 300px;
+            overflow: hidden;
+            /* limit size with min/max-width/height*/
+            min-height: 340px;
+            min-width: 300px;
+            max-width: 999px;
+            max-height: 800px;
+        }
+
+        .boxheader {
+            background: #535353;
+            color: white;
+            padding: 5px;
+        }
+
+        .boxbody {
+            font-size: 1.1em;
+            padding: 20px;
+        }
+
+        .win-size-grip {
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            padding: 4px;
+            bottom: 0;
+            right: 0;
+            cursor: nwse-resize;
+            background: url(../assets/wingrip.png) no-repeat;
+        }
+
+        pre {
+            margin: 20px;
+            padding: 10px;
+            background: #eee;
+            border: 1px solid silver;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
 <div class="page-container">
-
+    
     <h1>jquery-resizable Samples</h1>
-    <hr/>
+    <hr/>    
 
-    <h3>Samples</h3>
-    <ul>
-        <li><a href="ResizableBox.html">Simple Resizable Box</a></li>
-        <li><a href="SplitterPanel.html">Splitter Panels</a></li>
-        <li><a href="ResizableTable.html">Resizable Table Columns</a></li>
-    </ul>
+    <div class="box">
+        <div class="boxheader">Samples Box</div>
+        <div class="boxbody">
+    
+            <h3>Samples</h3>
+            <ul>
+                <li><a href="ResizableBox.html">Simple Resizable Box</a></li>
+                <li><a href="SplitterPanel.html">Splitter Panels</a></li>
+                <li><a href="ResizableTable.html">Resizable Table Columns</a></li>
+                <li><a target="_blank" href="https://github.com/RickStrahl/jquery-resizable">Documentation on Github</a></li>
+            </ul>
+            <div class="win-size-grip"></div>
+        </div>
+    </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> 
+<script src="../src/jquery-resizable.js"></script>
 <script>
 $(".box").resizable({
-    handleSelector: "size-grip",
-    resizeHeight: false,
-    resizeWidth: true
+    handleSelector: "> .win-size-grip",
+    resizeHeight: true,
+    resizeWidth: true,
+    
 });
 </script>
 </body>

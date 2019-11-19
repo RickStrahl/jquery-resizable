@@ -16,13 +16,7 @@ There's a more info on the how's and why's in this blog post:
 * [A small jquery-resizable Plug-in](http://weblog.west-wind.com/posts/2015/Dec/21/A-small-jQuery-Resizable-Plugin)
 
 ### Installation
-You can install this component from Bower:
-
-```
-$ bower install jquery-resizable
-```
-
-or from NPM - note the divergant name due to an existing package with the same name:
+You can install jquery-resizable from NPM. Please note that the name is `jquery-resizable-dom` due to another component name conflict.
 
 ```
 npm install jquery-resizable-dom
@@ -35,8 +29,16 @@ npm install jquery-resizable-dom
 $(selector).resizable(options);
 ```
 
-> ### Module Loading
-> jquery-resizable supports **commonJs** and **AMD** module loading the jQuery dependency. Since this is a plug-in there are no exports but resizable is just an extension method on the `jQuery.fn` extension object.
+> #### Naming Conflict Version: `.resizableSafe()`
+> If you're using jQuery-resizable with another component that uses the same name - like jquery ui - you can use `.resizableSafe()` instead of `.resizable()` with the same syntax. This allows side by side operation with conflicting libraries.
+> ```javascript
+> $(selector).resizableSafe(options);
+> ```
+> If you need this feature, just replace any references to `.resizable()` to `.resizableSafe()`.
+
+
+> #### Module Loading
+> jquery-resizable supports **commonJs** and **AMD** module loading for the jQuery dependency. Since this is a plug-in there are no exports but resizable is just an extension method on the `jQuery.fn` extension object.
 
 To use this plug-in add a script reference to jQuery and the resizable plug-in. Then use a jQuery selector to select the element to resize and provide an additional `.handleSelector` to select the sizing handle which initiates the resize operation.
 
@@ -215,6 +217,11 @@ All source code is copyright &copy; Rick Strahl, West Wind Technologies, regardl
 IN NO EVENT SHALL THE AUTHOR, OR ANY OTHER PARTY WHO MAY MODIFY AND/OR REDISTRIBUTE THIS PROGRAM AND DOCUMENTATION, BE LIABLE FOR ANY COMMERCIAL, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO USE THE PROGRAM INCLUDING, BUT NOT LIMITED TO, LOSS OF DATA OR DATA BEING RENDERED INACCURATE OR LOSSES SUSTAINED BY YOU OR LOSSES SUSTAINED BY THIRD PARTIES OR A FAILURE OF THE PROGRAM TO OPERATE WITH ANY OTHER PROGRAMS, EVEN IF YOU OR OTHER PARTIES HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.
 
 ## Change Log
+
+#### Version 0.35
+
+* **Add `.resizableSafe() to allow side by side w/ jquery.ui**  
+Added `.resizableSafe` overload to allow loading resizable in scenarios where another jquery component call `.resizable()` is in use. Most commonly this might be jquery UI. This is useful for other components that might depend on this particular component as a dependency and if they do they should use `.resizableSafe()`. Syntax is otherwise identical.
 
 #### Version 0.32
 
